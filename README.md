@@ -10,6 +10,13 @@
 
 # 使用方法
 
+``` xml
+<dependency>
+    <groupId>com.battcn</groupId>
+    <artifactId>request-spring-boot-starter</artifactId>
+    <version>1.0.1-RELEASE</version>
+</dependency>
+```
 
 在主函数（Application.java） 中添加相应注解即可
 
