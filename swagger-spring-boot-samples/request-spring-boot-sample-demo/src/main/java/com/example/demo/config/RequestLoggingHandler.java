@@ -33,7 +33,7 @@ public class RequestLoggingHandler implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         byte[] bytes = ((BodyCacheHttpServletResponseWrapper) response).getBody();
-        logger.info("[响应] - [{}]", new String(bytes));
+        logger.info("[请求] - [{}]", new String(bytes));
     }
 
 }
