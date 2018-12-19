@@ -6,7 +6,7 @@
 
 	<groupId>com.battcn</groupId>
 	<artifactId>request-spring-boot</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2-RELEASE</version>
 	<packaging>pom</packaging>
 	<name>request-spring-boot</name>
 
