@@ -5,6 +5,7 @@ import com.battcn.boot.request.configuration.servlet.BodyCacheHttpServletRespons
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -21,8 +22,11 @@ public class RequestLoggingHandler implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        byte[] bytes = ((BodyCacheHttpServletRequestWrapper) request).getBody();
-        logger.info("[请求] - [{}]", new String(bytes));
+        final String method = request.getMethod();
+        if (HttpMethod.POST.matches(method) || HttpMethod.PATCH.matches(method) || HttpMethod.PUT.matches(method)) {
+            byte[] bytes = ((BodyCacheHttpServletRequestWrapper) request).getBody();
+            logger.info("[请求] - [{}]", new String(bytes));
+        }
         return true;
     }
 
@@ -32,8 +36,11 @@ public class RequestLoggingHandler implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
-        byte[] bytes = ((BodyCacheHttpServletResponseWrapper) response).getBody();
-        logger.info("[请求] - [{}]", new String(bytes));
+        final String method = request.getMethod();
+        if (HttpMethod.POST.matches(method) || HttpMethod.PATCH.matches(method) || HttpMethod.PUT.matches(method)) {
+            byte[] bytes = ((BodyCacheHttpServletResponseWrapper) response).getBody();
+            logger.info("[请求] - [{}]", new String(bytes));
+        }
     }
 
 }
