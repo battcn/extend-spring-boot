@@ -1,8 +1,6 @@
 package com.battcn.boot.request.configuration.servlet;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.apache.commons.io.output.TeeOutputStream;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
@@ -10,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletResponseWrapper;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 /**
@@ -22,11 +19,10 @@ import java.io.PrintWriter;
 public class BodyCacheHttpServletResponseWrapper extends HttpServletResponseWrapper {
 
     private ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    private HttpServletResponse response;
+    private PrintWriter writer = new PrintWriter(byteArrayOutputStream);
 
-    public BodyCacheHttpServletResponseWrapper(HttpServletResponse response) {
+    BodyCacheHttpServletResponseWrapper(HttpServletResponse response) {
         super(response);
-        this.response = response;
     }
 
     public byte[] getBody() {
@@ -34,47 +30,68 @@ public class BodyCacheHttpServletResponseWrapper extends HttpServletResponseWrap
     }
 
     @Override
-    public ServletOutputStream getOutputStream() {
-        return new ServletOutputStreamWrapper(this.byteArrayOutputStream, this.response);
+    public ServletOutputStream getOutputStream() throws IOException {
+        return new ServletOutputStream() {
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setWriteListener(WriteListener writeListener) {
+
+            }
+
+            @Override
+            public void write(int b) throws IOException {
+                TeeOutputStream write = new TeeOutputStream(BodyCacheHttpServletResponseWrapper.super.getOutputStream(), byteArrayOutputStream);
+                write.write(b);
+            }
+        };
     }
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        return new PrintWriter(new OutputStreamWriter(this.byteArrayOutputStream, this.response.getCharacterEncoding()));
+        return new ServletPrintWriter(super.getWriter(), writer);
     }
 
+    private static class ServletPrintWriter extends PrintWriter {
 
-    @EqualsAndHashCode(callSuper = true)
-    @Data
-    @AllArgsConstructor
-    private static class ServletOutputStreamWrapper extends ServletOutputStream {
+        PrintWriter printWriter;
 
-        private ByteArrayOutputStream outputStream;
-        private HttpServletResponse response;
-
-        @Override
-        public boolean isReady() {
-            return true;
+        ServletPrintWriter(PrintWriter main, PrintWriter printWriter) {
+            super(main, true);
+            this.printWriter = printWriter;
         }
 
         @Override
-        public void setWriteListener(WriteListener listener) {
-
+        public void write(char[] buff, int off, int len) {
+            super.write(buff, off, len);
+            super.flush();
+            printWriter.write(buff, off, len);
+            printWriter.flush();
         }
 
         @Override
-        public void write(int b) throws IOException {
-            this.outputStream.write(b);
+        public void write(String s, int off, int len) {
+            super.write(s, off, len);
+            super.flush();
+            printWriter.write(s, off, len);
+            printWriter.flush();
         }
 
         @Override
-        public void flush() throws IOException {
-            if (!this.response.isCommitted()) {
-                byte[] body = this.outputStream.toByteArray();
-                ServletOutputStream outputStream = this.response.getOutputStream();
-                outputStream.write(body);
-                outputStream.flush();
-            }
+        public void write(int c) {
+            super.write(c);
+            super.flush();
+            printWriter.write(c);
+            printWriter.flush();
+        }
+
+        @Override
+        public void flush() {
+            super.flush();
+            printWriter.flush();
         }
     }
 }

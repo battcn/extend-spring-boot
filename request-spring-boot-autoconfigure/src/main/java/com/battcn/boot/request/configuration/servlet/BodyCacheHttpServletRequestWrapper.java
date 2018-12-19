@@ -23,7 +23,7 @@ public class BodyCacheHttpServletRequestWrapper extends HttpServletRequestWrappe
     private byte[] body;
     private ServletInputStreamWrapper inputStreamWrapper;
 
-    public BodyCacheHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
+    BodyCacheHttpServletRequestWrapper(HttpServletRequest request) throws IOException {
         super(request);
         this.body = IOUtils.toByteArray(request.getInputStream());
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(this.body != null ? this.body : DEFAULT_BYTE);
