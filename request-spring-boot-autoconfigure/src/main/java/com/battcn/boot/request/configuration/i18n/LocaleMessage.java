@@ -6,8 +6,8 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Component;
 
 /**
- * <p>获取本地 i18n 资源 <p/>
- * <p> key = value </p>
+ * <p>获取本地 i18n 资源<p/>
+ * <p>key = value</p>
  *
  * @author Levin
  * @since 2018/2/1 0001
