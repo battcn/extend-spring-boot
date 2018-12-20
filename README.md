@@ -1,6 +1,8 @@
 # 简介
 
-`request-spring-boot-starter` 对是一个 `request/response` 的增强包
+`request-spring-boot-starter` 对是一个 `request/response` 的增强包，每个功能都是通过注解形式开启，不会有任何额外的影响开销
+比如只想用日期格式化 `@EnableLocalDateTimeFormat` 即可，其它无关的 `Bean` 就不会被初始化，不会造成资源浪费 
+
 
 > 特点
 
