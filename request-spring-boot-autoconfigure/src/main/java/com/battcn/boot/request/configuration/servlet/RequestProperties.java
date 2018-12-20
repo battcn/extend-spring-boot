@@ -19,6 +19,9 @@ public class RequestProperties {
 
     private int order;
     private String name = "request-filter";
+    /**
+     * Flag to indicate that the registration is enabled.
+     */
     private Boolean enabled = true;
     private Map<String, String> initParameters = new LinkedHashMap<>();
     private Set<String> servletNames = new LinkedHashSet<>();
