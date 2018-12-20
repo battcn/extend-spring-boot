@@ -6,7 +6,7 @@ import org.springframework.lang.Nullable;
 
 /**
  * @author Levin
- * @create 2017/12/5 0005
+ * @since 2017/12/5 0005
  */
 @Data
 @ConfigurationProperties("request.cors")
