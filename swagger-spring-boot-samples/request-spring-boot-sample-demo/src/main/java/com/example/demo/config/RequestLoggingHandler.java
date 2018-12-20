@@ -24,8 +24,10 @@ public class RequestLoggingHandler implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         final String method = request.getMethod();
         if (HttpMethod.POST.matches(method) || HttpMethod.PATCH.matches(method) || HttpMethod.PUT.matches(method)) {
-            byte[] bytes = ((BodyCacheHttpServletRequestWrapper) request).getBody();
-            logger.info("[请求] - [{}]", new String(bytes));
+            if (request instanceof BodyCacheHttpServletRequestWrapper) {
+                BodyCacheHttpServletRequestWrapper requestWrapper = ((BodyCacheHttpServletRequestWrapper) request);
+                logger.info("[请求] - [{}]", new String(requestWrapper.getBody()));
+            }
         }
         return true;
     }
@@ -38,8 +40,10 @@ public class RequestLoggingHandler implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         final String method = request.getMethod();
         if (HttpMethod.POST.matches(method) || HttpMethod.PATCH.matches(method) || HttpMethod.PUT.matches(method)) {
-            byte[] bytes = ((BodyCacheHttpServletResponseWrapper) response).getBody();
-            logger.info("[请求] - [{}]", new String(bytes));
+            if (response instanceof BodyCacheHttpServletResponseWrapper) {
+                BodyCacheHttpServletResponseWrapper responseWrapper = ((BodyCacheHttpServletResponseWrapper) response);
+                logger.info("[请求] - [{}]", new String(responseWrapper.getBody()));
+            }
         }
     }
 
