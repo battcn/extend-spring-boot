@@ -6,7 +6,8 @@
 
 - 使 `spring.jackson.date-format` 属性支持 `JDK8` 日期格式化
 - 解决 `request.getInputStream()` 一次读取后失效痛点  
-
+- 国际化支持
+- 全局跨域支持
 
 # 使用方法
 
@@ -14,7 +15,7 @@
 <dependency>
     <groupId>com.battcn</groupId>
     <artifactId>request-spring-boot-starter</artifactId>
-    <version>1.0.2-RELEASE</version>
+    <version>1.0.3-RELEASE</version>
 </dependency>
 ```
 
@@ -29,6 +30,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * @author Levin
  */
+@EnableI18n
+@EnableCorsFilter
 @EnableLocalDateTimeFormat
 @EnableRequestWrapperFilter
 @SpringBootApplication
@@ -42,6 +45,14 @@ public class Application {
 
 
 ## 注解介绍
+
+> @EnableI18n
+
+`I18N` 国际化支持
+ 
+> @EnableCorsFilter
+
+全局跨域支持
 
 > EnableRequestWrapperFilter
 
