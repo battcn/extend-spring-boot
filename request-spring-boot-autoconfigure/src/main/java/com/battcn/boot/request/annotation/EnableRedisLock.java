@@ -16,7 +16,7 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Import({RedisLockAutoConfiguration.class})
-public @interface EnableRedisCacheLock {
+public @interface EnableRedisLock {
 
     /**
      * 是否开启 @RedisLock 的拦截器功能，开启使用注解意味着自动上锁和释放，如果不需要则自行手动

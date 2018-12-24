@@ -1,6 +1,6 @@
 package com.battcn.boot.request.configuration.redis.lock;
 
-import com.battcn.boot.request.annotation.EnableRedisCacheLock;
+import com.battcn.boot.request.annotation.EnableRedisLock;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -21,7 +21,7 @@ public class RedisLockAutoConfiguration implements ImportBeanDefinitionRegistrar
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableRedisCacheLock.class.getName()));
+        AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableRedisLock.class.getName()));
         final boolean lockInterceptor = annotationAttributes.getBoolean("lockInterceptor");
         final boolean defaultKeyGenerator = annotationAttributes.getBoolean("defaultKeyGenerator");
         GenericBeanDefinition redisLockDefinition = new GenericBeanDefinition();
