@@ -33,7 +33,7 @@ public class RedisLockInterceptor {
         Method method = signature.getMethod();
         RedisLock lock = method.getAnnotation(RedisLock.class);
         if (StringUtils.isEmpty(lock.prefix())) {
-            throw new RuntimeException("lock key don't null...");
+            throw new RuntimeException("lock key prefix don't null...");
         }
         final String lockKey = redisLockKeyGenerator.getLockKey(pjp);
         String value = UUID.randomUUID().toString();
