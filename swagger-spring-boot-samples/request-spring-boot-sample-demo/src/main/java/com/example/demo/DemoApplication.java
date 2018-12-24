@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableCorsFilter
 @EnableLocalDateTimeFormat
 @EnableRequestWrapperFilter
-@EnableRedisLock(defaultKeyGenerator = false)
+@EnableRedisLock
 @SpringBootApplication
 public class DemoApplication {
 
