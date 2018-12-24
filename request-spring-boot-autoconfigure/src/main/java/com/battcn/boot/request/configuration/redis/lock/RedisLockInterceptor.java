@@ -52,7 +52,6 @@ public class RedisLockInterceptor {
                 throw new RuntimeException("server exception");
             }
         } finally {
-            // TODO 如果演示的话需要注释该代码;实际应该放开
             redisLockTemplate.unlock(lockKey, value);
         }
     }

@@ -29,7 +29,7 @@ public class DefaultRedisLockKeyGenerator implements RedisLockKeyGenerator {
         final Object[] args = pjp.getArgs();
         final Parameter[] parameters = method.getParameters();
         StringBuilder builder = new StringBuilder();
-        // TODO 默认解析方法里面带 LockParam 注解的属性,如果没有尝试着解析实体对象中的
+        //  默认解析方法里面带 LockParam 注解的属性,如果没有尝试着解析实体对象中的
         for (int i = 0; i < parameters.length; i++) {
             final LockParam annotation = parameters[i].getAnnotation(LockParam.class);
             if (annotation == null) {
