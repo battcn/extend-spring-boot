@@ -17,15 +17,14 @@
 <dependency>
     <groupId>com.battcn</groupId>
     <artifactId>request-spring-boot-starter</artifactId>
-    <version>1.0.3-RELEASE</version>
+    <version>1.0.4-RELEASE</version>
 </dependency>
 ```
 
 在主函数（Application.java） 中添加相应注解即可
 
 ``` java
-import com.battcn.boot.request.annotation.EnableLocalDateTimeFormat;
-import com.battcn.boot.request.annotation.EnableRequestWrapperFilter;
+import com.battcn.boot.request.annotation.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -36,17 +35,23 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableCorsFilter
 @EnableLocalDateTimeFormat
 @EnableRequestWrapperFilter
+@EnableRedisLock
 @SpringBootApplication
-public class Application {
+public class DemoApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);
+        SpringApplication.run(DemoApplication.class, args);
     }
 }
+
 ```
 
 
 ## 注解介绍
+
+> @EnableRedisLock
+
+添加分布式锁的支持
 
 > @EnableI18n
 
