@@ -51,7 +51,7 @@ public class DemoApplication {
 
 > @EnableRedisLock
 
-添加分布式锁的支持
+添加分布式锁的支持，在启动类上加上该注解即可，然后在请求的接口上面加上`@RedisLock`
 
 > @EnableI18n
 
