@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import com.battcn.boot.request.annotation.EnableCorsFilter;
-import com.battcn.boot.request.annotation.EnableI18n;
-import com.battcn.boot.request.annotation.EnableLocalDateTimeFormat;
-import com.battcn.boot.request.annotation.EnableRequestWrapperFilter;
+import com.battcn.boot.request.annotation.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -14,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @EnableCorsFilter
 @EnableLocalDateTimeFormat
 @EnableRequestWrapperFilter
+@EnableRedisCacheLock(defaultKeyGenerator = false)
 @SpringBootApplication
 public class DemoApplication {
 
