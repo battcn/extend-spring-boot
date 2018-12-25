@@ -6,22 +6,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-
 /**
  * @author Levin
- * @since 2018/12/17 0017
+ * @since 2018/12/25 0025
  */
-
-@RequestMapping("/test")
 @RestController
-public class TestController {
+@RequestMapping("/xss")
+public class XssController {
 
 
     @PostMapping
-    public TestBody testBody(@RequestBody TestBody testBody) {
-        testBody.setTime(LocalDateTime.now());
-        return testBody;
+    public TestBody testXss(@RequestBody TestBody body) {
+        return body;
     }
 
 
