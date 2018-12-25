@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
 /**
- * 需要定义成 Bean
+ * 基于 Redis 实现的分布式锁组件
  *
  * @author Levin
  * @since 2018/6/15 0015

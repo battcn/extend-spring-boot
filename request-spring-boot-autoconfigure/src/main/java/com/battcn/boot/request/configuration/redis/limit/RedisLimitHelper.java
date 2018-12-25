@@ -15,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 需要定义成 Bean
+ * 基于 Redis 实现的分布式限流
  *
  * @author Levin
  * @since 2018/12/25
@@ -23,9 +23,10 @@ import java.util.List;
 @Slf4j
 public class RedisLimitHelper {
 
+    private static final String REDIS_LIMIT_TEMPLATE = "redisLimitTemplate";
     private RedisTemplate<String, Serializable> redisLimitTemplate;
 
-    @Bean("redisLimitTemplate")
+    @Bean(REDIS_LIMIT_TEMPLATE)
     public RedisTemplate<String, Serializable> redisLimitTemplate(LettuceConnectionFactory redisConnectionFactory) {
         this.redisLimitTemplate = new RedisTemplate<>();
         this.redisLimitTemplate.setKeySerializer(new StringRedisSerializer());
