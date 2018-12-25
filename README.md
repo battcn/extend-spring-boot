@@ -17,7 +17,7 @@
 <dependency>
     <groupId>com.battcn</groupId>
     <artifactId>request-spring-boot-starter</artifactId>
-    <version>1.0.5-RELEASE</version>
+    <version>1.0.6-RELEASE</version>
 </dependency>
 ```
 
@@ -48,6 +48,10 @@ public class DemoApplication {
 
 
 ## 注解介绍
+
+> @EnableRedisLimit
+
+添加分布式限流的支持，在启动类上加上该注解即可，然后在请求的接口上面加上`@RedisLimit`
 
 > @EnableRedisLock
 
