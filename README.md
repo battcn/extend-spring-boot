@@ -21,6 +21,39 @@
 </dependency>
 ```
 
+> 注意事项
+
+**如果你想使用 `EnableRedis` 相关组件，你需要额外依赖**
+
+``` xml
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-redis</artifactId>
+</dependency>
+```
+
+**如果你想使用 `EnableRequestWrapperFilter` 相关组件，你需要额外依赖**
+
+``` xml
+ <dependency>
+    <groupId>commons-io</groupId>
+    <artifactId>commons-io</artifactId>
+    <version>2.6</version>
+</dependency>
+```
+
+**如果你想使用 `EnableXssFilter` 相关组件，你需要额外依赖**
+
+``` xml
+<dependency>
+    <groupId>org.apache.commons</groupId>
+    <artifactId>commons-text</artifactId>
+    <version>1.6</version>
+</dependency>
+```
+
+
+
 在主函数（Application.java） 中添加相应注解即可
 
 ``` java
@@ -48,6 +81,10 @@ public class DemoApplication {
 
 
 ## 注解介绍
+
+> @EnableXssFilter
+
+添加对 XSS 攻击转义的支持
 
 > @EnableRedisLimit
 
