@@ -10,7 +10,7 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import javax.validation.Validator;
 
 import static com.battcn.boot.request.utils.StringUtils.DEFAULT_CHARSET;
-import static com.battcn.boot.request.utils.StringUtils.defaultString;
+import static org.apache.commons.lang3.StringUtils.defaultString;
 
 /**
  * @author Levin

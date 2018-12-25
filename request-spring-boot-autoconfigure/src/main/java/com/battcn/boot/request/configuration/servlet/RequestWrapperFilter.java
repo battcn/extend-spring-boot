@@ -26,8 +26,8 @@ import java.util.Set;
 @EnableConfigurationProperties({RequestProperties.class})
 public class RequestWrapperFilter {
 
-    @Bean
-    public FilterRegistrationBean filterRegistrationBean(RequestProperties properties) {
+    @Bean("registrationBodyCacheFilter")
+    public FilterRegistrationBean registrationBodyCacheFilter(RequestProperties properties) {
         FilterRegistrationBean<BodyCacheFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setEnabled(properties.getEnabled());
         // 设置顺序
