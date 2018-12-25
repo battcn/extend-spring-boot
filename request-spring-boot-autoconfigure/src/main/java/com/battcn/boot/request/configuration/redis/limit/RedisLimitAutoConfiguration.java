@@ -1,6 +1,6 @@
-package com.battcn.boot.request.configuration.redis.lock;
+package com.battcn.boot.request.configuration.redis.limit;
 
-import com.battcn.boot.request.annotation.EnableRedisLock;
+import com.battcn.boot.request.annotation.EnableRedisLimit;
 import com.battcn.boot.request.configuration.redis.DefaultRedisKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -18,22 +18,22 @@ import org.springframework.core.type.AnnotationMetadata;
  */
 @Slf4j
 @ConditionalOnClass(RedisAutoConfiguration.class)
-public class RedisLockAutoConfiguration implements ImportBeanDefinitionRegistrar {
+public class RedisLimitAutoConfiguration implements ImportBeanDefinitionRegistrar {
 
     @Override
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
-        AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableRedisLock.class.getName()));
+        AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableRedisLimit.class.getName()));
         final boolean interceptor = annotationAttributes.getBoolean("interceptor");
         final boolean defaultKeyGenerator = annotationAttributes.getBoolean("defaultKeyGenerator");
-        GenericBeanDefinition redisLockDefinition = new GenericBeanDefinition();
-        redisLockDefinition.setBeanClass(RedisLockHelper.class);
-        redisLockDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
-        registry.registerBeanDefinition("redisLockHelper", redisLockDefinition);
+        GenericBeanDefinition redisLimitDefinition = new GenericBeanDefinition();
+        redisLimitDefinition.setBeanClass(RedisLimitHelper.class);
+        redisLimitDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
+        registry.registerBeanDefinition("redisLimitHelper", redisLimitDefinition);
         if (interceptor) {
             GenericBeanDefinition definition = new GenericBeanDefinition();
-            definition.setBeanClass(RedisLockInterceptor.class);
+            definition.setBeanClass(RedisLimitInterceptor.class);
             definition.setScope(BeanDefinition.SCOPE_SINGLETON);
-            registry.registerBeanDefinition("redisLockInterceptor", definition);
+            registry.registerBeanDefinition("redisLimitInterceptor", definition);
         }
         final String defaultKeyName = "defaultKeyGenerator";
         if (defaultKeyGenerator && !registry.isBeanNameInUse(defaultKeyName)) {

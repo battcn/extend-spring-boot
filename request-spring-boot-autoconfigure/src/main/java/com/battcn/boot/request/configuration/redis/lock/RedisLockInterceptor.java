@@ -1,7 +1,7 @@
 package com.battcn.boot.request.configuration.redis.lock;
 
 
-import com.battcn.boot.request.configuration.redis.lock.annotation.RedisLock;
+import com.battcn.boot.request.configuration.redis.RedisKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,12 +22,12 @@ import java.util.UUID;
 public class RedisLockInterceptor {
 
     @Resource
-    private RedisLockTemplate redisLockTemplate;
+    private RedisLockHelper redisLockHelper;
     @Resource
-    private RedisLockKeyGenerator redisLockKeyGenerator;
+    private RedisKeyGenerator redisKeyGenerator;
 
 
-    @Around("execution(public * *(..)) && @annotation(com.battcn.boot.request.configuration.redis.lock.annotation.RedisLock)")
+    @Around("execution(public * *(..)) && @annotation(com.battcn.boot.request.configuration.redis.lock.RedisLock)")
     public Object interceptor(ProceedingJoinPoint pjp) {
         MethodSignature signature = (MethodSignature) pjp.getSignature();
         Method method = signature.getMethod();
@@ -35,11 +35,11 @@ public class RedisLockInterceptor {
         if (StringUtils.isEmpty(lock.prefix())) {
             throw new RuntimeException("lock key prefix don't null...");
         }
-        final String lockKey = redisLockKeyGenerator.getLockKey(pjp);
+        final String lockKey = redisKeyGenerator.generate(lock.prefix(), lock.delimiter(), pjp);
         String value = UUID.randomUUID().toString();
         try {
             // 假设上锁成功，但是设置过期时间失效，以后拿到的都是 false
-            final boolean success = redisLockTemplate.lock(lockKey, value, lock.expire(), lock.timeUnit());
+            final boolean success = redisLockHelper.lock(lockKey, value, lock.expire(), lock.timeUnit());
             if (log.isDebugEnabled()) {
                 log.debug("Redis lock key is [{}] and status is [{}]", lockKey, success);
             }
@@ -52,7 +52,7 @@ public class RedisLockInterceptor {
                 throw new RuntimeException("server exception");
             }
         } finally {
-            redisLockTemplate.unlock(lockKey, value);
+            redisLockHelper.unlock(lockKey, value);
         }
     }
 }

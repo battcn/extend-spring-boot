@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @author Levin
  * @since 2018/6/15 0015
  */
-public class RedisLockTemplate {
+public class RedisLockHelper {
 
 
     private static final String DELIMITER = "|";
@@ -30,7 +30,7 @@ public class RedisLockTemplate {
 
     private final StringRedisTemplate stringRedisTemplate;
 
-    public RedisLockTemplate(StringRedisTemplate stringRedisTemplate) {
+    public RedisLockHelper(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 

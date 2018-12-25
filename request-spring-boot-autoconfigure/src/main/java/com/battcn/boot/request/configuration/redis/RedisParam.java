@@ -1,4 +1,4 @@
-package com.battcn.boot.request.configuration.redis.lock.annotation;
+package com.battcn.boot.request.configuration.redis;
 
 
 import java.lang.annotation.Target;
@@ -6,7 +6,7 @@ import java.lang.annotation.Target;
 import java.lang.annotation.*;
 
 /**
- * 锁的参数
+ * 缓存 Key 的参数
  *
  * @author Levin
  */
@@ -14,7 +14,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface LockParam {
+public @interface RedisParam {
 
     /**
      * 字段名称

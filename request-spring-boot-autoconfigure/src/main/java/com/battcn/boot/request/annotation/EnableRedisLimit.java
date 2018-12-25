@@ -1,6 +1,6 @@
 package com.battcn.boot.request.annotation;
 
-import com.battcn.boot.request.configuration.redis.lock.RedisLockAutoConfiguration;
+import com.battcn.boot.request.configuration.redis.limit.RedisLimitAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -15,11 +15,11 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({RedisLockAutoConfiguration.class})
-public @interface EnableRedisLock {
+@Import({RedisLimitAutoConfiguration.class})
+public @interface EnableRedisLimit {
 
     /**
-     * 是否开启 @RedisLock 的拦截器功能，开启使用注解意味着自动上锁和释放，如果不需要则自行手动
+     * 是否开启 @RedisLimit 的拦截器功能
      *
      * @return true | false
      */

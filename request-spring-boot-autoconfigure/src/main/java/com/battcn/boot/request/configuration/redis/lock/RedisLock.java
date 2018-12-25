@@ -1,4 +1,4 @@
-package com.battcn.boot.request.configuration.redis.lock.annotation;
+package com.battcn.boot.request.configuration.redis.lock;
 
 import java.lang.annotation.*;
 import java.util.concurrent.TimeUnit;
