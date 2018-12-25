@@ -1,7 +1,10 @@
 package com.battcn.boot.request.configuration.redis.limit;
 
 
+import com.battcn.boot.request.configuration.redis.DefaultRedisKeyGenerator;
+import com.battcn.boot.request.configuration.redis.RedisKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -35,6 +38,12 @@ public class RedisLimitHelper {
         return redisLimitTemplate;
     }
 
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisKeyGenerator redisKeyGenerator() {
+        return new DefaultRedisKeyGenerator();
+    }
 
     /**
      * 尝试获取

@@ -24,7 +24,6 @@ public class RedisLimitAutoConfiguration implements ImportBeanDefinitionRegistra
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableRedisLimit.class.getName()));
         final boolean interceptor = annotationAttributes.getBoolean("interceptor");
-        final boolean defaultKeyGenerator = annotationAttributes.getBoolean("defaultKeyGenerator");
         GenericBeanDefinition redisLimitDefinition = new GenericBeanDefinition();
         redisLimitDefinition.setBeanClass(RedisLimitHelper.class);
         redisLimitDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
@@ -34,14 +33,6 @@ public class RedisLimitAutoConfiguration implements ImportBeanDefinitionRegistra
             definition.setBeanClass(RedisLimitInterceptor.class);
             definition.setScope(BeanDefinition.SCOPE_SINGLETON);
             registry.registerBeanDefinition("redisLimitInterceptor", definition);
-        }
-        final String defaultKeyName = "defaultKeyGenerator";
-        if (defaultKeyGenerator && !registry.isBeanNameInUse(defaultKeyName)) {
-            GenericBeanDefinition definition = new GenericBeanDefinition();
-            definition.setBeanClass(DefaultRedisKeyGenerator.class);
-            definition.setPrimary(false);
-            definition.setScope(BeanDefinition.SCOPE_SINGLETON);
-            registry.registerBeanDefinition(defaultKeyName, definition);
         }
     }
 }

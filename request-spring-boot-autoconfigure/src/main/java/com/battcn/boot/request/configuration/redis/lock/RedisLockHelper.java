@@ -1,6 +1,10 @@
 package com.battcn.boot.request.configuration.redis.lock;
 
 
+import com.battcn.boot.request.configuration.redis.DefaultRedisKeyGenerator;
+import com.battcn.boot.request.configuration.redis.RedisKeyGenerator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -33,6 +37,13 @@ public class RedisLockHelper {
     public RedisLockHelper(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
     }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RedisKeyGenerator redisKeyGenerator() {
+        return new DefaultRedisKeyGenerator();
+    }
+
 
     /**
      * 获取锁（存在死锁风险）

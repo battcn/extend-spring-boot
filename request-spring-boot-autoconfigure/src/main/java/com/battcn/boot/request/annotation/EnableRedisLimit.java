@@ -24,12 +24,4 @@ public @interface EnableRedisLimit {
      * @return true | false
      */
     boolean interceptor() default true;
-
-    /**
-     * 是否开启默认的 KeyGenerator
-     *
-     * @return true | false
-     */
-    boolean defaultKeyGenerator() default true;
-
 }

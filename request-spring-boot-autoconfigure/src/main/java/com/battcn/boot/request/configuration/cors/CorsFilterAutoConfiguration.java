@@ -9,7 +9,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import static org.apache.commons.lang3.StringUtils.defaultString;
+import static com.battcn.boot.request.utils.StringUtils.defaultString;
 
 /**
  * @author Levin

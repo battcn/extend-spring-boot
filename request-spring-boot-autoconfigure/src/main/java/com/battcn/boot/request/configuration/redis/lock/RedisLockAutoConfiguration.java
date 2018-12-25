@@ -1,7 +1,6 @@
 package com.battcn.boot.request.configuration.redis.lock;
 
 import com.battcn.boot.request.annotation.EnableRedisLock;
-import com.battcn.boot.request.configuration.redis.DefaultRedisKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
@@ -24,7 +23,6 @@ public class RedisLockAutoConfiguration implements ImportBeanDefinitionRegistrar
     public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {
         AnnotationAttributes annotationAttributes = AnnotationAttributes.fromMap(importingClassMetadata.getAnnotationAttributes(EnableRedisLock.class.getName()));
         final boolean interceptor = annotationAttributes.getBoolean("interceptor");
-        final boolean defaultKeyGenerator = annotationAttributes.getBoolean("defaultKeyGenerator");
         GenericBeanDefinition redisLockDefinition = new GenericBeanDefinition();
         redisLockDefinition.setBeanClass(RedisLockHelper.class);
         redisLockDefinition.setScope(BeanDefinition.SCOPE_SINGLETON);
@@ -34,14 +32,6 @@ public class RedisLockAutoConfiguration implements ImportBeanDefinitionRegistrar
             definition.setBeanClass(RedisLockInterceptor.class);
             definition.setScope(BeanDefinition.SCOPE_SINGLETON);
             registry.registerBeanDefinition("redisLockInterceptor", definition);
-        }
-        final String defaultKeyName = "defaultKeyGenerator";
-        if (defaultKeyGenerator && !registry.isBeanNameInUse(defaultKeyName)) {
-            GenericBeanDefinition definition = new GenericBeanDefinition();
-            definition.setBeanClass(DefaultRedisKeyGenerator.class);
-            definition.setPrimary(false);
-            definition.setScope(BeanDefinition.SCOPE_SINGLETON);
-            registry.registerBeanDefinition(defaultKeyName, definition);
         }
     }
 }
