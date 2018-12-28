@@ -1,4 +1,4 @@
-package com.battcn.boot.request.configuration.encrypt.annotation;
+package com.battcn.boot.request.configuration.crypto.annotation;
 
 import com.battcn.boot.request.utils.encrypt.CryptoType;
 
@@ -8,12 +8,14 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * 解密
+ *
  * @author Levin
- * @since 2018/12/28 0028
  */
 @Target(value = {ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Encrypt {
+public @interface Decrypt {
+
 
     /**
      * 如果选择的 RSA 加/解密算法，那么 key 为必填项

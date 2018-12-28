@@ -1,7 +1,7 @@
-package com.battcn.boot.request.configuration.encrypt.advice;
+package com.battcn.boot.request.configuration.crypto.advice;
 
-import com.battcn.boot.request.configuration.encrypt.EncryptProperties;
-import com.battcn.boot.request.configuration.encrypt.annotation.Encrypt;
+import com.battcn.boot.request.configuration.crypto.CryptoProperties;
+import com.battcn.boot.request.configuration.crypto.annotation.Encrypt;
 import com.battcn.boot.request.utils.StringUtils;
 import com.battcn.boot.request.utils.encrypt.CryptoUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -28,7 +28,7 @@ import java.nio.charset.Charset;
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Resource
-    private EncryptProperties properties;
+    private CryptoProperties properties;
     @Resource
     private ObjectMapper objectMapper;
 
@@ -73,7 +73,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
         }
         final Charset charset = Charset.forName(properties.getEncoding());
         final Encrypt encrypt = returnType.getMethodAnnotation(Encrypt.class);
-        final EncryptProperties.Encrypt propertiesEncrypt = properties.getEncrypt();
+        final CryptoProperties.Encrypt propertiesEncrypt = properties.getEncrypt();
         final String key = StringUtils.defaultString(encrypt.key(), propertiesEncrypt.getKey());
         final String result = CryptoUtils.encryptToString(encrypt.type(), key, content, charset);
         if (log.isDebugEnabled()) {

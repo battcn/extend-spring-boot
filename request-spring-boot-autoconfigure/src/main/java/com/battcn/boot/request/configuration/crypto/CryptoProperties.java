@@ -1,4 +1,4 @@
-package com.battcn.boot.request.configuration.encrypt;
+package com.battcn.boot.request.configuration.crypto;
 
 import com.battcn.boot.request.utils.encrypt.CryptoType;
 import lombok.Data;
@@ -13,15 +13,15 @@ import javax.validation.constraints.NotNull;
  */
 @Data
 @Validated
-@ConfigurationProperties(prefix = "request")
-public class EncryptProperties {
+@ConfigurationProperties(prefix = "request.crypto")
+public class CryptoProperties {
 
     private Encrypt encrypt;
     private Decrypt decrypt;
     private String encoding = "UTF-8";
 
     @Data
-    @ConfigurationProperties(prefix = "request.encrypt")
+    @ConfigurationProperties(prefix = "request.crypto.encrypt")
     public static class Encrypt {
         @NotNull
         private String key;
@@ -30,7 +30,7 @@ public class EncryptProperties {
     }
 
     @Data
-    @ConfigurationProperties(prefix = "request.decrypt")
+    @ConfigurationProperties(prefix = "request.crypto.decrypt")
     public static class Decrypt {
 
         @NotNull

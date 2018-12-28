@@ -1,7 +1,7 @@
-package com.battcn.boot.request.configuration.encrypt.advice;
+package com.battcn.boot.request.configuration.crypto.advice;
 
-import com.battcn.boot.request.configuration.encrypt.EncryptProperties;
-import com.battcn.boot.request.configuration.encrypt.annotation.Decrypt;
+import com.battcn.boot.request.configuration.crypto.CryptoProperties;
+import com.battcn.boot.request.configuration.crypto.annotation.Decrypt;
 import com.battcn.boot.request.utils.StringUtils;
 import com.battcn.boot.request.utils.encrypt.CryptoUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ import java.nio.charset.Charset;
 public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
 
     @Resource
-    private EncryptProperties properties;
+    private CryptoProperties properties;
 
     private static final String MARK = "\"";
 
@@ -65,7 +65,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
         try {
             final Charset charset = Charset.forName(properties.getEncoding());
             final Decrypt decrypt = parameter.getMethod().getAnnotation(Decrypt.class);
-            final EncryptProperties.Decrypt propertiesDecrypt = properties.getDecrypt();
+            final CryptoProperties.Decrypt propertiesDecrypt = properties.getDecrypt();
             final String key = StringUtils.defaultString(decrypt.key(), propertiesDecrypt.getKey());
             final String content = IOUtils.toString(inputStream, charset);
             if (log.isDebugEnabled()) {
