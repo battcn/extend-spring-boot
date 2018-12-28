@@ -35,4 +35,13 @@ public class TestBody {
     public void setTime(LocalDateTime time) {
         this.time = time;
     }
+
+    @Override
+    public String toString() {
+        return "TestBody{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }
