@@ -16,6 +16,13 @@ public class StringUtils {
     public static final String DEFAULT_CHARSET = "UTF-8";
 
     /**
+     * Represents a failed index search.
+     *
+     * @since 2.1
+     */
+    public static final int INDEX_NOT_FOUND = -1;
+
+    /**
      * <p>Returns either the passed in String, or if the String is
      * {@code null}, the value of {@code defaultStr}.</p>
      * <p>
@@ -35,6 +42,76 @@ public class StringUtils {
         return str == null ? defaultStr : str;
     }
 
+    /**
+     * <p>Gets the String that is nested in between two Strings.
+     * Only the first match is returned.</p>
+     * <p>
+     * <p>A {@code null} input String returns {@code null}.
+     * A {@code null} open/close returns {@code null} (no match).
+     * An empty ("") open and close returns an empty string.</p>
+     * <p>
+     * <pre>
+     * StringUtils.substringBetween("wx[b]yz", "[", "]") = "b"
+     * StringUtils.substringBetween(null, *, *)          = null
+     * StringUtils.substringBetween(*, null, *)          = null
+     * StringUtils.substringBetween(*, *, null)          = null
+     * StringUtils.substringBetween("", "", "")          = ""
+     * StringUtils.substringBetween("", "", "]")         = null
+     * StringUtils.substringBetween("", "[", "]")        = null
+     * StringUtils.substringBetween("yabcz", "", "")     = ""
+     * StringUtils.substringBetween("yabcz", "y", "z")   = "abc"
+     * StringUtils.substringBetween("yabczyabcz", "y", "z")   = "abc"
+     * </pre>
+     *
+     * @param str   the String containing the substring, may be null
+     * @param open  the String before the substring, may be null
+     * @param close the String after the substring, may be null
+     * @return the substring, {@code null} if no match
+     * @since 2.0
+     */
+    public static String substringBetween(final String str, final String open, final String close) {
+        if (str == null || open == null || close == null) {
+            return null;
+        }
+        final int start = str.indexOf(open);
+        if (start != INDEX_NOT_FOUND) {
+            final int end = str.indexOf(close, start + open.length());
+            if (end != INDEX_NOT_FOUND) {
+                return str.substring(start + open.length(), end);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
+     * <p>
+     * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <p>
+     * <pre>
+     * StringUtils.isBlank(null)      = true
+     * StringUtils.isBlank("")        = true
+     * StringUtils.isBlank(" ")       = true
+     * StringUtils.isBlank("bob")     = false
+     * StringUtils.isBlank("  bob  ") = false
+     * </pre>
+     *
+     * @param cs the CharSequence to check, may be null
+     * @return {@code true} if the CharSequence is null, empty or whitespace only
+     * @since 3.0 Changed signature from isBlank(String) to isBlank(CharSequence)
+     */
+    public static boolean isBlank(final CharSequence cs) {
+        int strLen;
+        if (cs == null || (strLen = cs.length()) == 0) {
+            return true;
+        }
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     /**
      * <p>Joins the elements of the provided array into a single String
