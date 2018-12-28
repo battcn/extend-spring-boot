@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.battcn.boot.request.configuration.encrypt.annotation.Decrypt;
-import com.battcn.boot.request.configuration.encrypt.annotation.Encrypt;
+import com.battcn.boot.request.configuration.crypto.annotation.Decrypt;
+import com.battcn.boot.request.configuration.crypto.annotation.Encrypt;
 import com.battcn.boot.request.utils.encrypt.CryptoType;
 import com.battcn.boot.request.utils.encrypt.CryptoUtils;
 import com.example.demo.entity.TestBody;
