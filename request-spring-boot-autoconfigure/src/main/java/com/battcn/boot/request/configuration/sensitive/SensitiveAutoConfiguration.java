@@ -15,13 +15,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * 脱敏自动装配类
+ *
  * @author Levin
  * @since 2019/1/2 0002
  */
 @EnableConfigurationProperties(value = {SensitiveProperties.class})
 public class SensitiveAutoConfiguration {
-
-    private static final SensitiveProcessor PROCESSOR = SensitiveProcessor.getInstance();
 
     @Bean("registrationSensitiveFilter")
     public FilterRegistrationBean registrationSensitiveFilter(SensitiveProperties properties) throws IOException {
@@ -35,15 +35,14 @@ public class SensitiveAutoConfiguration {
             path = path.replaceFirst("/", "");
         }
         // 加载数据字典
-        PROCESSOR.loadWordDict(path, Charset.forName(properties.getEncoding()));
+        SensitiveProcessor.getInstance().loadWordDict(path, Charset.forName(properties.getEncoding()));
 
         FilterRegistrationBean<SensitiveFilter> registrationBean = new FilterRegistrationBean<>();
         // 设置 SensitiveFilter
         registrationBean.setFilter(new SensitiveFilter(properties));
+        registrationBean.setEnabled(true);
         final SensitiveProperties.Filter filter = properties.getFilter();
         if (filter != null) {
-            // 设置过滤路径
-            registrationBean.setEnabled(filter.getEnabled());
             // 设置顺序
             registrationBean.setOrder(filter.getOrder());
             final String name = filter.getName();

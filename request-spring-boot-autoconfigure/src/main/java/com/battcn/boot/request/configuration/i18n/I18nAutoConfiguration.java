@@ -34,6 +34,12 @@ public class I18nAutoConfiguration {
         return bundleMessageSource;
     }
 
+    /**
+     * 注入 Validator 验证 Bean
+     *
+     * @return Validator
+     * @throws Exception Exception
+     */
     @Bean
     public Validator getValidator() throws Exception {
         LocalValidatorFactoryBean validator = new LocalValidatorFactoryBean();

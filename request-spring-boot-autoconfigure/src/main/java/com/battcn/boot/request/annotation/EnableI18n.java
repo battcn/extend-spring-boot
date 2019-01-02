@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * Cors 过滤
+ * 开启国际化支持
  *
  * @author Levin
  * @since 2018-01-15

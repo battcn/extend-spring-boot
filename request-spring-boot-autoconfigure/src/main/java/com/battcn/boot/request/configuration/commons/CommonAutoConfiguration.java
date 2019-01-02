@@ -16,6 +16,8 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import java.io.IOException;
 
 /**
+ * XSS 与 Sensitive 的公共支持
+ *
  * @author Levin
  * @since 2019/1/2 0002
  */

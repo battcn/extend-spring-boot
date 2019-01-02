@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.lang.Nullable;
 
 /**
+ * Core 跨域相关配置
+ *
  * @author Levin
  * @since 2017/12/5 0005
  */

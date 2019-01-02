@@ -6,10 +6,10 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * Cors 过滤
+ * 开启跨域支持
  *
  * @author Levin
- * @since 2018-01-15
+ * @since 2019-01-01
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)

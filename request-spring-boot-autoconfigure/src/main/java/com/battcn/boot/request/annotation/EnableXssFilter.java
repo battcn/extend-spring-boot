@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * Xss 过滤保护
+ * 开启防 Xss 攻击
  *
  * @author Levin
  * @since 2018-01-15

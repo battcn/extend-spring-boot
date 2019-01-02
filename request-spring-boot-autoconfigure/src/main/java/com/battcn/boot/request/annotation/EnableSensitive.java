@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
- * 开启敏感字符过滤
+ * 开启请求内容脱敏处理
  *
  * @author Levin
  * @since 2019/1/2 0002

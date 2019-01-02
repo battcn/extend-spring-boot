@@ -36,10 +36,6 @@ public class SensitiveProperties {
 
         private int order;
         private String name = "sensitive-filter";
-        /**
-         * Flag to indicate that the registration is enabled.
-         */
-        private Boolean enabled = true;
         private Map<String, String> initParameters = new LinkedHashMap<>();
         private Set<String> servletNames = new LinkedHashSet<>();
         private Set<ServletRegistrationBean<?>> servletRegistrationBeans = new LinkedHashSet<>();

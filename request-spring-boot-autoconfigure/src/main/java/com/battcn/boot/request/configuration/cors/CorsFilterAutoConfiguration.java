@@ -12,6 +12,8 @@ import org.springframework.web.filter.CorsFilter;
 import static com.battcn.boot.request.utils.StringUtils.defaultString;
 
 /**
+ * Cors 跨域支持
+ *
  * @author Levin
  * @since 2017/12/5 0005
  */

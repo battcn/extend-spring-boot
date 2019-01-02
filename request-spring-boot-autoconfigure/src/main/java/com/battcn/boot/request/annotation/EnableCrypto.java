@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Import;
 import java.lang.annotation.*;
 
 /**
+ * 开启加/解密功能
+ *
  * @author Levin
  * @since 2018/12/28 0028
  */
