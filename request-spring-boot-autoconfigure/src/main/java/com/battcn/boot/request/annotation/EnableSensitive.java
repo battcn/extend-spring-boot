@@ -1,22 +1,23 @@
 package com.battcn.boot.request.annotation;
 
 import com.battcn.boot.request.configuration.commons.CommonAutoConfiguration;
-import com.battcn.boot.request.configuration.xss.XssFilterAutoConfiguration;
+import com.battcn.boot.request.configuration.sensitive.SensitiveAutoConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
 
 /**
- * Xss 过滤保护
+ * 开启敏感字符过滤
  *
  * @author Levin
- * @since 2018-01-15
+ * @since 2019/1/2 0002
  */
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-@Import({XssFilterAutoConfiguration.class, CommonAutoConfiguration.class})
-public @interface EnableXssFilter {
+@Import({SensitiveAutoConfiguration.class, CommonAutoConfiguration.class})
+public @interface EnableSensitive {
+
 
 }

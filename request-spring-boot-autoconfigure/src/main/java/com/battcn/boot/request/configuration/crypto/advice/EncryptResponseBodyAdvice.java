@@ -29,8 +29,6 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Resource
     private CryptoProperties properties;
-    @Resource
-    private ObjectMapper objectMapper;
 
     /**
      * Whether this component supports the given controller method return type
@@ -63,6 +61,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
     public Object beforeBodyWrite(Object body, MethodParameter returnType, MediaType selectedContentType, Class selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         String content = null;
         try {
+            ObjectMapper objectMapper = new ObjectMapper();
             content = objectMapper.writeValueAsString(body);
             if (log.isDebugEnabled()) {
                 log.info("[加密前的内容] - [{}]", content);
