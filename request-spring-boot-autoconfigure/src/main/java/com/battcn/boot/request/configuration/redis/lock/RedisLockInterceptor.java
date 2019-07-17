@@ -49,6 +49,7 @@ public class RedisLockInterceptor {
             try {
                 return pjp.proceed();
             } catch (Throwable throwable) {
+                log.error("[server exception]", throwable);
                 throw new RuntimeException("server exception");
             }
         } finally {

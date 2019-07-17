@@ -45,6 +45,7 @@ public class RedisLimitInterceptor {
                 throw new RuntimeException(limitAnnotation.message());
             }
         } catch (Throwable e) {
+            log.error("[server exception]", e);
             if (e instanceof RuntimeException) {
                 throw new RuntimeException(e.getLocalizedMessage());
             }
