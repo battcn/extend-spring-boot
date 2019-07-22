@@ -17,5 +17,5 @@ import java.lang.annotation.*;
 @Documented
 @Inherited
 @Import({PreparePluginsConfiguration.class})
-public @interface EnableMybatisPerparePlugin {
+public @interface EnableMybatisPreparePlugin {
 }

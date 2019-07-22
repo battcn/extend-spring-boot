@@ -20,7 +20,7 @@
 <dependency>
     <groupId>com.battcn</groupId>
     <artifactId>request-spring-boot-starter</artifactId>
-    <version>1.0.9-SNAPSHOT</version>
+    <version>1.0.9-RELEASE</version>
 </dependency>
 ```
 
@@ -84,6 +84,39 @@ public class DemoApplication {
 
 
 ## 注解介绍
+
+> @EnableMybatisPreparePlugin
+
+使用该注解可以有效的为Insert/Update 指令添加全局参数拦截，我们开发中经常要设置一些`createdBy`、`createdTime`、`lastModifiedBy`、`lastModifiedTime` 之类的关键字，很多人喜欢用 `AOP`方式，但是那样不够优雅，而且扩展性也不够强
+``` properties
+# 首先配置一下我们需要处理的字段（实体类里面的字段名字）
+request:
+  mybatis:
+    plugin:
+      superClass: true
+      insert:
+        fields:
+          - createdBy
+      update:
+        fields:
+          - lastModifiedBy            
+```
+
+**重要：必须实现`PreparePluginContent` 的接口，为你的字段进行赋值操作，直接使用注解会抛出异常信息**
+
+``` java
+@Component
+public class PreparePluginContentHandler implements PreparePluginContent {
+
+    @Override
+    public Map<String, Object> process() {
+        Map<String, Object> map = Maps.newHashMap();
+        map.put("createdBy", SecurityUtils.userId());
+        map.put("lastModifiedBy", SecurityUtils.userId());
+        return map;
+    }
+}  
+```
 
 > @EnableXssFilter
 
