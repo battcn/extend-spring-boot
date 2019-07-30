@@ -1,10 +1,10 @@
-package com.example.demo.controller;
+package com.example.storage.controller;
 
 import com.battcn.boot.request.configuration.crypto.annotation.Decrypt;
 import com.battcn.boot.request.configuration.crypto.annotation.Encrypt;
 import com.battcn.boot.request.utils.encrypt.CryptoType;
 import com.battcn.boot.request.utils.encrypt.CryptoUtils;
-import com.example.demo.entity.TestBody;
+import com.example.storage.entity.TestBody;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

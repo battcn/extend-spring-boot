@@ -1,8 +1,6 @@
 package com.battcn.boot.request.configuration.redis;
 
 
-import java.lang.annotation.Target;
-
 import java.lang.annotation.*;
 
 /**

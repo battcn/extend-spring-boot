@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.storage.controller;
 
 import com.battcn.boot.request.configuration.redis.RedisParam;
 import com.battcn.boot.request.configuration.redis.lock.RedisLock;

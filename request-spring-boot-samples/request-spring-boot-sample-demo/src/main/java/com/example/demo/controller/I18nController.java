@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.storage.controller;
 
 import com.battcn.boot.request.configuration.i18n.LocaleMessage;
-import com.example.demo.entity.I18nEntity;
+import com.example.storage.entity.I18nEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

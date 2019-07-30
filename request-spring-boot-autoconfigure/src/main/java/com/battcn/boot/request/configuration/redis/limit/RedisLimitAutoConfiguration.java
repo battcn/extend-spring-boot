@@ -1,7 +1,6 @@
 package com.battcn.boot.request.configuration.redis.limit;
 
 import com.battcn.boot.request.annotation.EnableRedisLimit;
-import com.battcn.boot.request.configuration.redis.DefaultRedisKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;

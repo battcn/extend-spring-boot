@@ -20,7 +20,7 @@
 <dependency>
     <groupId>com.battcn</groupId>
     <artifactId>request-spring-boot-starter</artifactId>
-    <version>1.0.9-RELEASE</version>
+    <version>1.1.1-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -80,6 +80,43 @@ public class DemoApplication {
     }
 }
 
+```
+
+
+## 存储功能
+
+- 支持 AliYun 云
+- 支持 Tencent 云
+- 支持 QiNiu 云
+- 支持 Minio 
+
+``` 
+@Autowired
+private StorageOperation storageOperation;
+
+#request.storage.oss.minio.enabled=true
+#request.storage.oss.minio.access-key=123
+#request.storage.oss.minio.secret-key=123
+#request.storage.oss.minio.url=http://localhost:20000
+#request.storage.oss.minio.bucket=demo
+
+
+#request.storage.oss.aliyun.enabled=true
+#request.storage.oss.aliyun.access-key=adasd
+#request.storage.oss.aliyun.secret-key=adas
+
+
+#request.storage.oss.qiniu.enabled=true
+#request.storage.oss.qiniu.access-key=sad
+#request.storage.oss.qiniu.secret-key=asd
+#request.storage.oss.qiniu.zone=zone0
+
+
+
+#request.storage.oss.tencent.enabled=true
+#request.storage.oss.tencent.access-key=adad
+#request.storage.oss.tencent.app-id=asdas
+#request.storage.oss.tencent.secret-key=asdasd
 ```
 
 

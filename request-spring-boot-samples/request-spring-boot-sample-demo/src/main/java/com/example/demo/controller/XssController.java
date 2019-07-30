@@ -1,6 +1,6 @@
-package com.example.demo.controller;
+package com.example.storage.controller;
 
-import com.example.demo.entity.TestBody;
+import com.example.storage.entity.TestBody;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

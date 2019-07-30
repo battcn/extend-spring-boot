@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.storage;
 
 import org.junit.Test;
 

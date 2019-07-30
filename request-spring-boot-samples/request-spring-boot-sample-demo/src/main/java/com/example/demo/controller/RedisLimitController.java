@@ -1,13 +1,10 @@
-package com.example.demo.controller;
+package com.example.storage.controller;
 
 import com.battcn.boot.request.configuration.redis.RedisParam;
 import com.battcn.boot.request.configuration.redis.limit.RedisLimit;
-import com.battcn.boot.request.configuration.redis.lock.RedisLock;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Levin

@@ -1,4 +1,4 @@
-package com.example.demo.config;
+package com.example.storage.config;
 
 import com.battcn.boot.request.configuration.servlet.BodyCacheHttpServletRequestWrapper;
 import com.battcn.boot.request.configuration.servlet.BodyCacheHttpServletResponseWrapper;
