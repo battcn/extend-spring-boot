@@ -25,8 +25,6 @@ public class StringUtils {
     /**
      * <p>Returns either the passed in String, or if the String is
      * {@code null}, the value of {@code defaultStr}.</p>
-     * <p>
-     * <pre>
      * StringUtils.defaultString(null, "NULL")  = "NULL"
      * StringUtils.defaultString("", "NULL")    = ""
      * StringUtils.defaultString("bat", "NULL") = "bat"
@@ -45,11 +43,9 @@ public class StringUtils {
     /**
      * <p>Gets the String that is nested in between two Strings.
      * Only the first match is returned.</p>
-     * <p>
      * <p>A {@code null} input String returns {@code null}.
      * A {@code null} open/close returns {@code null} (no match).
      * An empty ("") open and close returns an empty string.</p>
-     * <p>
      * <pre>
      * StringUtils.substringBetween("wx[b]yz", "[", "]") = "b"
      * StringUtils.substringBetween(null, *, *)          = null
@@ -85,10 +81,7 @@ public class StringUtils {
 
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
-     * <p>
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
-     * <p>
-     * <pre>
      * StringUtils.isBlank(null)      = true
      * StringUtils.isBlank("")        = true
      * StringUtils.isBlank(" ")       = true
@@ -116,11 +109,9 @@ public class StringUtils {
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
-     * <p>
      * <p>No separator is added to the joined String.
      * Null objects or empty strings within the array are represented by
      * empty strings.</p>
-     * <p>
      * <pre>
      * StringUtils.join(null)            = null
      * StringUtils.join([])              = ""
@@ -141,11 +132,9 @@ public class StringUtils {
     /**
      * <p>Joins the elements of the provided array into a single String
      * containing the provided list of elements.</p>
-     * <p>
      * <p>No delimiter is added before or after the list.
      * Null objects or empty strings within the array are represented by
      * empty strings.</p>
-     * <p>
      * <pre>
      * StringUtils.join(null, *)               = null
      * StringUtils.join([], *)                 = ""
