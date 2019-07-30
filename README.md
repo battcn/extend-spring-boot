@@ -1,6 +1,6 @@
 # 简介
 
-`request-spring-boot-starter` 对是一个 `request/response` 的增强包，每个功能都是通过注解形式开启，不会有任何额外的影响开销
+`extend-spring-boot-starter` 对是一个 `request/response` 的增强包，每个功能都是通过注解形式开启，不会有任何额外的影响开销
 比如只想用日期格式化 `@EnableLocalDateTimeFormat` 即可，其它无关的 `Bean` 就不会被初始化，不会造成资源浪费 
 
 
@@ -19,8 +19,8 @@
 ``` xml
 <dependency>
     <groupId>com.battcn</groupId>
-    <artifactId>request-spring-boot-starter</artifactId>
-    <version>1.1.1-RELEASE</version>
+    <artifactId>extend-spring-boot-starter</artifactId>
+    <version>2.0.1-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -60,7 +60,7 @@
 在主函数（Application.java） 中添加相应注解即可
 
 ``` java
-import com.battcn.boot.request.annotation.*;
+import com.battcn.boot.extend.annotation.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

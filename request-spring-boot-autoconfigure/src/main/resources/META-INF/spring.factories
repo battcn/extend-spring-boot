@@ -1,6 +1,0 @@
-# Auto Configure
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-  com.battcn.boot.request.configuration.storage.oss.aliyun.AliYunOssAutoConfiguration,\
-  com.battcn.boot.request.configuration.storage.oss.tencent.TencentOssAutoConfiguration,\
-  com.battcn.boot.request.configuration.storage.oss.qiniu.QiNiuOssAutoConfiguration,\
-  com.battcn.boot.request.configuration.storage.oss.minio.MinioOssAutoConfiguration
