@@ -25,6 +25,7 @@ public class StringUtils {
     /**
      * <p>Returns either the passed in String, or if the String is
      * {@code null}, the value of {@code defaultStr}.</p>
+     * <pre>
      * StringUtils.defaultString(null, "NULL")  = "NULL"
      * StringUtils.defaultString("", "NULL")    = ""
      * StringUtils.defaultString("bat", "NULL") = "bat"
@@ -82,6 +83,7 @@ public class StringUtils {
     /**
      * <p>Checks if a CharSequence is empty (""), null or whitespace only.</p>
      * <p>Whitespace is defined by {@link Character#isWhitespace(char)}.</p>
+     * <pre>
      * StringUtils.isBlank(null)      = true
      * StringUtils.isBlank("")        = true
      * StringUtils.isBlank(" ")       = true
