@@ -19,6 +19,7 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.WR
 @ConfigurationProperties(prefix = WRAPPER_FILTER)
 public class RequestProperties {
 
+
     private int order;
     private String name = "extend-filter";
     /**

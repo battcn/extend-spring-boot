@@ -19,6 +19,7 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.XS
 @ConfigurationProperties(XSS_FILTER)
 public class XssProperties {
 
+    private boolean enabled = true;
     private int order;
     private String name = "xss-filter";
     private Map<String, String> initParameters = new LinkedHashMap<>();

@@ -16,6 +16,7 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.MY
 @ConfigurationProperties(prefix = MYBATIS_PLUGIN)
 public class PreparePluginProperties {
 
+    private boolean enabled = true;
     private Boolean superClass = false;
     private ClassField insert;
     private ClassField update;

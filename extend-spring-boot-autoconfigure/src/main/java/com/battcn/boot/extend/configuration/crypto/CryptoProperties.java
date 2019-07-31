@@ -18,6 +18,7 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.CR
 @ConfigurationProperties(CRYPTO)
 public class CryptoProperties {
 
+    private Boolean enabled;
     private Encrypt encrypt;
     private Decrypt decrypt;
     private String encoding = "UTF-8";

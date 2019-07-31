@@ -19,6 +19,8 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.SE
 @ConfigurationProperties(prefix = SENSITIVE)
 public class SensitiveProperties {
 
+    private boolean enabled = true;
+
     private String encoding = "UTF-8";
     /**
      * 字典存在路径
