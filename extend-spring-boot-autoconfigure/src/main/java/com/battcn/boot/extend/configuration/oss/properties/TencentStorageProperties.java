@@ -1,6 +1,6 @@
 package com.battcn.boot.extend.configuration.oss.properties;
 
-import com.battcn.boot.extend.configuration.oss.domain.OssConstants;
+import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -11,7 +11,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ConfigurationProperties(prefix = OssConstants.OSS_CONFIG_PREFIX_TENCENT)
+@ConfigurationProperties(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_TENCENT)
 public class TencentStorageProperties extends BaseStorageProperties {
 
     private static final long serialVersionUID = -4336190295449006211L;

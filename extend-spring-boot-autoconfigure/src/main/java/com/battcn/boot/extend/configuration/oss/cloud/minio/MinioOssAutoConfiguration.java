@@ -1,7 +1,7 @@
 package com.battcn.boot.extend.configuration.oss.cloud.minio;
 
 import com.battcn.boot.extend.configuration.oss.MinioStorageOperation;
-import com.battcn.boot.extend.configuration.oss.domain.OssConstants;
+import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
 import com.battcn.boot.extend.configuration.oss.properties.MinioStorageProperties;
 import io.minio.MinioClient;
 import io.minio.errors.*;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
-import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.ALI_YUN_STORAGE_OPERATION;
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.ALI_YUN_STORAGE_OPERATION;
 
 
 /**
@@ -25,7 +25,7 @@ import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.ALI_Y
  */
 @Slf4j
 @EnableConfigurationProperties(MinioStorageProperties.class)
-@ConditionalOnProperty(prefix = OssConstants.OSS_CONFIG_PREFIX_MINIO, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_MINIO, name = "enabled", havingValue = "true")
 public class MinioOssAutoConfiguration {
 
     @Bean

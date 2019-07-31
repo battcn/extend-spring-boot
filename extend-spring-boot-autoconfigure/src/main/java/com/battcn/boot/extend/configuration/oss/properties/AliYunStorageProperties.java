@@ -4,7 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.OSS_CONFIG_PREFIX_ALIYUN;
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.OSS_CONFIG_PREFIX_ALIYUN;
 
 /**
  * @author Levin

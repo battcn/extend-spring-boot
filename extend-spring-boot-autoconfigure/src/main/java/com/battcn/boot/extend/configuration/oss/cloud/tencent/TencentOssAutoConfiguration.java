@@ -1,7 +1,7 @@
 package com.battcn.boot.extend.configuration.oss.cloud.tencent;
 
 import com.battcn.boot.extend.configuration.oss.TencentStorageOperation;
-import com.battcn.boot.extend.configuration.oss.domain.OssConstants;
+import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
 import com.battcn.boot.extend.configuration.oss.properties.TencentStorageProperties;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;
@@ -13,7 +13,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.TENCENT_STORAGE_OPERATION;
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.TENCENT_STORAGE_OPERATION;
 
 
 /**
@@ -24,7 +24,7 @@ import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.TENCE
  **/
 @Configuration
 @EnableConfigurationProperties({TencentStorageProperties.class})
-@ConditionalOnProperty(prefix = OssConstants.OSS_CONFIG_PREFIX_TENCENT, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_TENCENT, name = "enabled", havingValue = "true")
 public class TencentOssAutoConfiguration {
 
 

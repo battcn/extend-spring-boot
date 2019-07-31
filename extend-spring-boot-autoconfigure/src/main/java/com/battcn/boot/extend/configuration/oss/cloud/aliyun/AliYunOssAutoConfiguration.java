@@ -5,7 +5,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.common.auth.CredentialsProvider;
 import com.aliyun.oss.common.auth.DefaultCredentialProvider;
 import com.battcn.boot.extend.configuration.oss.AliYunStorageOperation;
-import com.battcn.boot.extend.configuration.oss.domain.OssConstants;
+import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
 import com.battcn.boot.extend.configuration.oss.endpoint.OssEndpoint;
 import com.battcn.boot.extend.configuration.oss.properties.AliYunStorageProperties;
 import lombok.AllArgsConstructor;
@@ -14,7 +14,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.MINIO_STORAGE_OPERATION;
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.MINIO_STORAGE_OPERATION;
 
 /**
  * 阿里云 OSS
@@ -24,7 +24,7 @@ import static com.battcn.boot.extend.configuration.oss.domain.OssConstants.MINIO
 @Configuration
 @AllArgsConstructor
 @EnableConfigurationProperties(AliYunStorageProperties.class)
-@ConditionalOnProperty(prefix = OssConstants.OSS_CONFIG_PREFIX_ALIYUN, name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_ALIYUN, name = "enabled", havingValue = "true")
 public class AliYunOssAutoConfiguration {
 
 

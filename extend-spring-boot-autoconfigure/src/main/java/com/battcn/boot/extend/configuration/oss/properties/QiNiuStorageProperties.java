@@ -1,6 +1,6 @@
 package com.battcn.boot.extend.configuration.oss.properties;
 
-import com.battcn.boot.extend.configuration.oss.domain.OssConstants;
+import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.QiNiuZone;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import java.util.Map;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ConfigurationProperties(prefix = OssConstants.OSS_CONFIG_PREFIX_QINIU)
+@ConfigurationProperties(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_QINIU)
 public class QiNiuStorageProperties extends BaseStorageProperties {
 
     private static final long serialVersionUID = -4666211741817264708L;

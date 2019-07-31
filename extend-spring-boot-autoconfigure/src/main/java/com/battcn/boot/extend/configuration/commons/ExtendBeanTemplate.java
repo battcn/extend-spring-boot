@@ -1,10 +1,29 @@
-package com.battcn.boot.extend.configuration.oss.domain;
+package com.battcn.boot.extend.configuration.commons;
 
 /**
+ * 扩展包所有 bean 名字
+ *
  * @author Levin
  * @since 2019-07-30
  **/
-public interface OssConstants {
+public interface ExtendBeanTemplate {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*  OSS 云存储的    */
     /**
      * 配置文件前缀
      */
@@ -18,9 +37,6 @@ public interface OssConstants {
     String ALI_YUN_STORAGE_OPERATION = "aliYunStorageOperation";
     String QI_NIU_STORAGE_OPERATION = "qiNiuStorageOperation";
     String TENCENT_STORAGE_OPERATION = "tencentStorageOperation";
-
-
-
 
 
 }

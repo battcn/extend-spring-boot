@@ -1,6 +1,6 @@
 package com.battcn.boot.extend.configuration.oss.properties;
 
-import com.battcn.boot.extend.configuration.oss.domain.OssConstants;
+import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,7 +14,7 @@ import java.time.Duration;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ConfigurationProperties(prefix = OssConstants.OSS_CONFIG_PREFIX_MINIO)
+@ConfigurationProperties(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_MINIO)
 public class MinioStorageProperties extends BaseStorageProperties {
 
     private static final long serialVersionUID = -7689095309309838184L;
