@@ -1,5 +1,6 @@
 package com.battcn.boot.extend.configuration.xss;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -11,12 +12,15 @@ import org.springframework.util.StringUtils;
 import java.util.Map;
 import java.util.Set;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
+
 /**
  * @author Levin
  * @since 2018/12/15 0005
  */
 @Configuration
 @EnableConfigurationProperties(value = {XssProperties.class})
+@ConditionalOnProperty(prefix = XSS_FILTER, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class XssFilterAutoConfiguration {
 
     @Bean("registrationXssFilter")

@@ -6,12 +6,14 @@ import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.MYBATIS_PLUGIN;
+
 /**
  * @author Levin
  */
 @Data
 @Validated
-@ConfigurationProperties(prefix = "extend.mybatis.plugin")
+@ConfigurationProperties(prefix = MYBATIS_PLUGIN)
 public class PreparePluginProperties {
 
     private Boolean superClass = false;

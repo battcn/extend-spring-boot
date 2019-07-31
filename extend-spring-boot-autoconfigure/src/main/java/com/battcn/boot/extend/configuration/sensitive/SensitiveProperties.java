@@ -9,12 +9,14 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.SENSITIVE;
+
 /**
  * @author Levin
  * @since 2019/1/2 0002
  */
 @Data
-@ConfigurationProperties("extend.sensitive")
+@ConfigurationProperties(prefix = SENSITIVE)
 public class SensitiveProperties {
 
     private String encoding = "UTF-8";
@@ -31,7 +33,6 @@ public class SensitiveProperties {
     private Filter filter = new Filter();
 
     @Data
-    @ConfigurationProperties("extend.sensitive.filter")
     public static class Filter {
 
         private int order;

@@ -9,12 +9,14 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.XSS_FILTER;
+
 /**
  * @author Levin
  * @since 2017/12/5 0005
  */
 @Data
-@ConfigurationProperties("extend.xss.filter")
+@ConfigurationProperties(XSS_FILTER)
 public class XssProperties {
 
     private int order;

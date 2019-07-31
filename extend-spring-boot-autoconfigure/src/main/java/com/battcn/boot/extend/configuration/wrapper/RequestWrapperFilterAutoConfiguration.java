@@ -1,5 +1,6 @@
 package com.battcn.boot.extend.configuration.wrapper;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -18,6 +19,8 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Set;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
+
 /**
  * QQ交流群：391619659
  *
@@ -26,6 +29,7 @@ import java.util.Set;
  */
 @Configuration
 @EnableConfigurationProperties({RequestProperties.class})
+@ConditionalOnProperty(prefix = WRAPPER_FILTER, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class RequestWrapperFilterAutoConfiguration {
 
     @Bean("registrationBodyCacheFilter")

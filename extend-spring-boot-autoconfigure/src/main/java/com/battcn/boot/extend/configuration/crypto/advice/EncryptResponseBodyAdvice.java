@@ -7,6 +7,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
+
 /**
  * 对 ResponseBody 返回的信息做加密处理
  *
@@ -25,6 +28,7 @@ import java.nio.charset.Charset;
  */
 @Slf4j
 @RestControllerAdvice
+@ConditionalOnProperty(prefix = CRYPTO, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Resource

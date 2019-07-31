@@ -9,6 +9,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
+
 /**
  * JDK8 日期格式化
  *
@@ -28,6 +31,7 @@ import java.util.TimeZone;
  * @since 2018/12/17 0017
  */
 @Configuration
+@ConditionalOnProperty(prefix = TIME, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class LocalDateSerializerAutoConfiguration {
 
     @Value("${spring.jackson.date-format:yyyy-MM-dd HH:mm:ss}")

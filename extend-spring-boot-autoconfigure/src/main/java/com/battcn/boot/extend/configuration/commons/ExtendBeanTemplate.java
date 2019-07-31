@@ -8,8 +8,18 @@ package com.battcn.boot.extend.configuration.commons;
  **/
 public interface ExtendBeanTemplate {
 
+    String TRUE = "true";
+    String ENABLED = "enabled";
 
 
+    String I18N = "extend.i18n";
+    String CORS = "extend.cors";
+    String CRYPTO = "extend.crypto";
+    String MYBATIS_PLUGIN = "extend.mybatis.plugin";
+    String SENSITIVE = "extend.sensitive";
+    String TIME = "extend.time";
+    String WRAPPER_FILTER = "extend.wrapper.filter";
+    String XSS_FILTER = "extend.xss.filter";
 
 
 

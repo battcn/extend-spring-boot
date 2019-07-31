@@ -6,6 +6,7 @@ import com.battcn.boot.extend.configuration.crypto.encrypt.CryptoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
@@ -20,6 +21,8 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
+
 /**
  * 对 RequestBody 中加密信息做解密处理
  *
@@ -29,6 +32,7 @@ import java.nio.charset.Charset;
 @Slf4j
 @RestControllerAdvice
 @EnableConfigurationProperties(CryptoProperties.class)
+@ConditionalOnProperty(prefix = CRYPTO, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
 
     @Resource

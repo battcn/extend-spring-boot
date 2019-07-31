@@ -9,12 +9,14 @@ import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.WRAPPER_FILTER;
+
 /**
  * @author Levin
  * @since 2018/12/17 0017
  */
 @Data
-@ConfigurationProperties(prefix = "extend.filter")
+@ConfigurationProperties(prefix = WRAPPER_FILTER)
 public class RequestProperties {
 
     private int order;

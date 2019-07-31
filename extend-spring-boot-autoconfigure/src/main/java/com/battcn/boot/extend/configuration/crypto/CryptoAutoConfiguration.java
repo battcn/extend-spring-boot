@@ -2,8 +2,11 @@ package com.battcn.boot.extend.configuration.crypto;
 
 import com.battcn.boot.extend.configuration.crypto.advice.DecryptRequestBodyAdvice;
 import com.battcn.boot.extend.configuration.crypto.advice.EncryptResponseBodyAdvice;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
 
 /**
  * @author Levin
@@ -11,6 +14,7 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @Import({DecryptRequestBodyAdvice.class, CryptoProperties.class, EncryptResponseBodyAdvice.class})
+@ConditionalOnProperty(prefix = CRYPTO, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class CryptoAutoConfiguration {
 
 

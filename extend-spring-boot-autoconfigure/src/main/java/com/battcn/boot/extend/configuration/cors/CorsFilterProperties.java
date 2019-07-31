@@ -5,6 +5,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotNull;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.CORS;
+
 /**
  * Core 跨域相关配置
  *
@@ -12,7 +14,7 @@ import javax.validation.constraints.NotNull;
  * @since 2017/12/5 0005
  */
 @Data
-@ConfigurationProperties("extend.cors")
+@ConfigurationProperties(CORS)
 public class CorsFilterProperties {
 
     private Boolean enabled;

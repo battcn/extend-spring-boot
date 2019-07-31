@@ -1,5 +1,6 @@
 package com.battcn.boot.extend.configuration.sensitive;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -14,6 +15,8 @@ import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Set;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
+
 /**
  * 脱敏自动装配类
  *
@@ -22,6 +25,7 @@ import java.util.Set;
  */
 @Configuration
 @EnableConfigurationProperties(value = {SensitiveProperties.class})
+@ConditionalOnProperty(prefix = SENSITIVE, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class SensitiveAutoConfiguration {
 
     @Bean("registrationSensitiveFilter")

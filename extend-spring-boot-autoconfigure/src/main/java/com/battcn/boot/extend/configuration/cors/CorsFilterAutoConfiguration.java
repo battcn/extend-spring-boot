@@ -2,6 +2,7 @@ package com.battcn.boot.extend.configuration.cors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,6 +10,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
 import static org.apache.commons.lang3.StringUtils.defaultString;
 
 /**
@@ -19,10 +21,10 @@ import static org.apache.commons.lang3.StringUtils.defaultString;
  */
 @Configuration
 @EnableConfigurationProperties(value = {CorsFilterProperties.class})
+@ConditionalOnProperty(prefix = CORS, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class CorsFilterAutoConfiguration {
 
     private static final String PATH = "/**";
-
     private final CorsFilterProperties properties;
 
     @Autowired
