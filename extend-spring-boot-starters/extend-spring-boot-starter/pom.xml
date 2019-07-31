@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.battcn</groupId>
-        <version>2.0.1-SNAPSHOT</version>
+        <version>2.0.1-RELEASE</version>
         <artifactId>extend-spring-boot-starters</artifactId>
     </parent>
     <groupId>com.battcn</groupId>
