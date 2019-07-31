@@ -133,7 +133,10 @@ public class MinioStorageOperation implements StorageOperation {
         minioClient.putObject(bucketName, fileName, content, content.available(), ContentType.APPLICATION_OCTET_STREAM.getMimeType());
         return StorageResponse.builder()
                 .successful(true)
-                .storageItem(StorageItem.builder().name(fileName).path(properties.getMapperPath() + fileName).size((long) content.available()).build())
+                .storageItem(StorageItem.builder()
+                        .name(fileName)
+                        .path(properties.getMappingPath() + fileName)
+                        .build())
                 .build();
     }
 

@@ -27,7 +27,7 @@ public class StorageItem {
     private String path;
 
     /**
-     * 文件大小
+     * 文件大小（该值不一定有）
      */
     private Long size;
 

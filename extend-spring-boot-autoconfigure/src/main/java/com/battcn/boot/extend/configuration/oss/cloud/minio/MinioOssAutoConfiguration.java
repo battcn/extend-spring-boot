@@ -1,13 +1,12 @@
 package com.battcn.boot.extend.configuration.oss.cloud.minio;
 
-import com.battcn.boot.extend.configuration.oss.MinioStorageOperation;
 import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
+import com.battcn.boot.extend.configuration.oss.MinioStorageOperation;
 import com.battcn.boot.extend.configuration.oss.properties.MinioStorageProperties;
 import io.minio.MinioClient;
 import io.minio.errors.*;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,7 +29,6 @@ public class MinioOssAutoConfiguration {
 
     @Bean
     @SneakyThrows
-    @ConditionalOnExpression("${request.storage.oss.minio.enabled:true}")
     public MinioClient minioClient(MinioStorageProperties properties) {
         MinioClient minioClient;
         try {
