@@ -2,6 +2,8 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
 com.battcn.boot.extend.configuration.cors.CorsFilterAutoConfiguration,\
 com.battcn.boot.extend.configuration.i18n.I18nAutoConfiguration,\
+com.battcn.boot.extend.configuration.crypto.CryptoAutoConfiguration,\
+com.battcn.boot.extend.configuration.xss.XssFilterAutoConfiguration,\
 com.battcn.boot.extend.configuration.mybatis.plugins.PreparePluginAutoConfiguration,\
 com.battcn.boot.extend.configuration.sensitive.SensitiveAutoConfiguration,\
 com.battcn.boot.extend.configuration.storage.oss.aliyun.AliYunOssAutoConfiguration,\

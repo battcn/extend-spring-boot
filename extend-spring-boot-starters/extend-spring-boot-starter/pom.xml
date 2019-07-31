@@ -5,19 +5,21 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.battcn</groupId>
-        <artifactId>extend-spring-boot-dependencies</artifactId>
         <version>2.0.1-SNAPSHOT</version>
+        <artifactId>extend-spring-boot-starters</artifactId>
     </parent>
+    <groupId>com.battcn</groupId>
     <artifactId>extend-spring-boot-starter</artifactId>
     <name>extend-spring-boot-starter</name>
     <packaging>jar</packaging>
     <version>${parent.version}</version>
 
+
     <dependencies>
         <dependency>
             <groupId>com.battcn</groupId>
             <artifactId>extend-spring-boot-autoconfigure</artifactId>
-            <version>${project.parent.version}</version>
+            <version>${extend-spring-boot.version}</version>
         </dependency>
     </dependencies>
 

@@ -6,6 +6,7 @@ import com.battcn.boot.extend.configuration.crypto.encrypt.CryptoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -27,6 +28,7 @@ import java.nio.charset.Charset;
  */
 @Slf4j
 @RestControllerAdvice
+@EnableConfigurationProperties(CryptoProperties.class)
 public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
 
     @Resource
