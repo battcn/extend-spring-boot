@@ -4,6 +4,7 @@ import com.aliyun.oss.OSSClient;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
+import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import com.battcn.boot.extend.configuration.oss.properties.AliYunStorageProperties;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
@@ -95,15 +96,15 @@ public class AliYunStorageOperation implements StorageOperation {
 
     @SneakyThrows
     @Override
-    public void upload(String fileName, byte[] content) {
-        upload(properties.getBucket(), fileName, content);
+    public StorageResponse upload(String fileName, byte[] content) {
+        return upload(properties.getBucket(), fileName, content);
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, InputStream content) {
+    public StorageResponse upload(String bucketName, String fileName, InputStream content) {
         byte[] bytes = new byte[content.available()];
-        upload(properties.getBucket(), fileName, bytes);
+        return upload(properties.getBucket(), fileName, bytes);
     }
 
     /**
@@ -115,7 +116,7 @@ public class AliYunStorageOperation implements StorageOperation {
      */
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, byte[] content) {
+    public StorageResponse upload(String bucketName, String fileName, byte[] content) {
         ByteArrayInputStream bis = new ByteArrayInputStream(content);
         try {
             ossClient.putObject(bucketName, fileName, bis);
@@ -125,6 +126,7 @@ public class AliYunStorageOperation implements StorageOperation {
             FILE_UPLOAD_FAIL.incrementAndGet();
             log.error("[异常信息]", ex);
         }
+        return StorageResponse.builder().build();
     }
 
     @SneakyThrows

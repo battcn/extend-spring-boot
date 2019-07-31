@@ -1,6 +1,7 @@
 package com.battcn.boot.extend.configuration.oss;
 
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
+import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import com.battcn.boot.extend.configuration.oss.exception.StorageException;
 import com.battcn.boot.extend.configuration.oss.properties.BaseStorageProperties;
 import com.battcn.boot.extend.configuration.oss.properties.MinioStorageProperties;
@@ -121,21 +122,25 @@ public class MinioStorageOperation implements StorageOperation {
 
     @SneakyThrows
     @Override
-    public void upload(String fileName, byte[] content) {
+    public StorageResponse upload(String fileName, byte[] content) {
         InputStream stream = new ByteArrayInputStream(content);
-        upload(properties.getBucket(), fileName, stream);
+        return upload(properties.getBucket(), fileName, stream);
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, InputStream content) {
+    public StorageResponse upload(String bucketName, String fileName, InputStream content) {
         minioClient.putObject(bucketName, fileName, content, content.available(), ContentType.APPLICATION_OCTET_STREAM.getMimeType());
+        return StorageResponse.builder()
+                .successful(true)
+                .storageItem(StorageItem.builder().name(fileName).path(properties.getMapperPath() + fileName).size((long) content.available()).build())
+                .build();
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, byte[] content) {
-        upload(bucketName, fileName, new ByteArrayInputStream(content));
+    public StorageResponse upload(String bucketName, String fileName, byte[] content) {
+        return upload(bucketName, fileName, new ByteArrayInputStream(content));
     }
 
     @SneakyThrows

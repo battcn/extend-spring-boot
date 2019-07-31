@@ -1,6 +1,7 @@
 package com.battcn.boot.extend.configuration.oss;
 
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
+import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import lombok.SneakyThrows;
 
 import java.io.BufferedReader;
@@ -86,9 +87,10 @@ public interface StorageOperation {
      *
      * @param fileName 文件名字
      * @param content  文件内容
+     * @return StorageResponse
      */
     @SneakyThrows
-    void upload(String fileName, byte[] content);
+    StorageResponse upload(String fileName, byte[] content);
 
     /**
      * 上传文件到指定的 bucket
@@ -96,9 +98,10 @@ public interface StorageOperation {
      * @param bucketName 存储桶名
      * @param fileName   文件名字
      * @param content    文件内容
+     * @return StorageResponse
      */
     @SneakyThrows
-    void upload(String bucketName, String fileName, InputStream content);
+    StorageResponse upload(String bucketName, String fileName, InputStream content);
 
     /**
      * 上传文件到指定的 bucket
@@ -106,9 +109,10 @@ public interface StorageOperation {
      * @param bucketName 存储桶名
      * @param fileName   文件名字
      * @param content    文件内容
+     * @return StorageResponse
      */
     @SneakyThrows
-    void upload(String bucketName, String fileName, byte[] content);
+    StorageResponse upload(String bucketName, String fileName, byte[] content);
 
     /**
      * 删除文件

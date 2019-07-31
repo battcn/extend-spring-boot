@@ -1,6 +1,7 @@
 package com.battcn.boot.extend.configuration.oss;
 
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
+import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import com.battcn.boot.extend.configuration.oss.exception.StorageException;
 import com.battcn.boot.extend.configuration.oss.properties.BaseStorageProperties;
 import com.battcn.boot.extend.configuration.oss.properties.TencentStorageProperties;
@@ -70,13 +71,13 @@ public class TencentStorageOperation implements StorageOperation {
 
     @SneakyThrows
     @Override
-    public void upload(String fileName, byte[] content) {
-        upload(properties.getBucket(), fileName, content);
+    public StorageResponse upload(String fileName, byte[] content) {
+        return upload(properties.getBucket(), fileName, content);
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, InputStream content) {
+    public StorageResponse upload(String bucketName, String fileName, InputStream content) {
         //腾讯云必需要以"/"开头
         if (!fileName.startsWith(File.separator)) {
             fileName = File.separator + fileName;
@@ -85,15 +86,18 @@ public class TencentStorageOperation implements StorageOperation {
         objectMetadata.setContentLength(content.available());
         PutObjectRequest request = new PutObjectRequest(properties.getBucket(), fileName, content, objectMetadata);
         PutObjectResult result = client.putObject(request);
-
         if (StringUtils.isEmpty(result.getETag())) {
             throw new StorageException(BaseStorageProperties.StorageType.QCLOUD, "文件上传失败");
         }
+        return StorageResponse.builder().storageItem(StorageItem
+                .builder().path(properties.getMapperPath() + fileName)
+                .name(fileName)
+                .build()).build();
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, byte[] content) {
+    public StorageResponse upload(String bucketName, String fileName, byte[] content) {
         //腾讯云必需要以"/"开头
         if (!fileName.startsWith(File.separator)) {
             fileName = File.separator + fileName;
@@ -107,7 +111,10 @@ public class TencentStorageOperation implements StorageOperation {
         if (StringUtils.isEmpty(result.getETag())) {
             throw new StorageException(BaseStorageProperties.StorageType.QCLOUD, "文件上传失败");
         }
-        //OSSCommonModel(fileName, properties.getDomain() + fileName);
+        return StorageResponse.builder().storageItem(StorageItem
+                .builder().path(properties.getMapperPath() + fileName)
+                .name(fileName)
+                .build()).build();
     }
 
     @Override

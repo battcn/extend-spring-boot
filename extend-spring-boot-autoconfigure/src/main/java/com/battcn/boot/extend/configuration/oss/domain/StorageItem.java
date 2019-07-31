@@ -1,6 +1,9 @@
 package com.battcn.boot.extend.configuration.oss.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
@@ -8,6 +11,9 @@ import java.util.Map;
  * @author Levin
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class StorageItem {
 
     /**

@@ -1,8 +1,9 @@
 package com.battcn.boot.extend.configuration.oss;
 
-import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.QiNiuScope;
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.connection.QiNiuConnectionFactory;
+import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
+import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import com.battcn.boot.extend.configuration.oss.properties.QiNiuStorageProperties;
 import com.qiniu.cdn.CdnManager;
 import com.qiniu.storage.BucketManager;
@@ -87,22 +88,24 @@ public class QiNiuStorageOperation implements StorageOperation {
 
     @SneakyThrows
     @Override
-    public void upload(String fileName, byte[] content) {
-        upload(properties.getBucket(), fileName, content);
+    public StorageResponse upload(String fileName, byte[] content) {
+        return upload(properties.getBucket(), fileName, content);
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, InputStream content) {
+    public StorageResponse upload(String bucketName, String fileName, InputStream content) {
         String upToken = getUploadToken(bucketName, fileName, QiNiuScope.DEFAULT);
         uploadManager.put(content, fileName, upToken, null, null);
+        return StorageResponse.builder().build();
     }
 
     @SneakyThrows
     @Override
-    public void upload(String bucketName, String fileName, byte[] content) {
+    public StorageResponse upload(String bucketName, String fileName, byte[] content) {
         String upToken = getUploadToken(bucketName, fileName, QiNiuScope.DEFAULT);
         uploadManager.put(content, fileName, upToken);
+        return StorageResponse.builder().build();
     }
 
     @SneakyThrows
