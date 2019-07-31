@@ -8,9 +8,10 @@
         <version>2.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.battcn</groupId>
     <artifactId>extend-wrapper-spring-boot-starter</artifactId>
-
+    <version>${extend-spring-boot.version}</version>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>

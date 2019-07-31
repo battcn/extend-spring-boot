@@ -8,8 +8,10 @@
         <version>2.0.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <groupId>com.battcn</groupId>
     <artifactId>extend-time-spring-boot-starter</artifactId>
+    <version>${extend-spring-boot.version}</version>
+    <packaging>jar</packaging>
 
 
     <dependencies>
@@ -21,6 +23,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
         </dependency>
     </dependencies>
 

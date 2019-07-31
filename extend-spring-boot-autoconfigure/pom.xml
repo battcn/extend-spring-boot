@@ -9,10 +9,11 @@
         <version>2.0.1-SNAPSHOT</version>
         <relativePath>../extend-spring-boot-dependencies/pom.xml</relativePath>
     </parent>
+    <groupId>com.battcn</groupId>
     <artifactId>extend-spring-boot-autoconfigure</artifactId>
     <name>extend-spring-boot-autoconfigure</name>
+    <version>${extend-spring-boot.version}</version>
     <packaging>jar</packaging>
-    <version>${parent.version}</version>
 
 
     <properties>

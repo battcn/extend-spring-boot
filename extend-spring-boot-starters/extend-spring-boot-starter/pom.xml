@@ -11,8 +11,8 @@
     <groupId>com.battcn</groupId>
     <artifactId>extend-spring-boot-starter</artifactId>
     <name>extend-spring-boot-starter</name>
+    <version>${extend-spring-boot.version}</version>
     <packaging>jar</packaging>
-    <version>${parent.version}</version>
 
 
     <dependencies>
