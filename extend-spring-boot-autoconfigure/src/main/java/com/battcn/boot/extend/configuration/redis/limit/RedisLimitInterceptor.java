@@ -6,10 +6,13 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.data.redis.core.types.Expiration;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
+
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
 
 /**
  * @author Levin
@@ -17,6 +20,7 @@ import java.lang.reflect.Method;
  */
 @Slf4j
 @Aspect
+@ConditionalOnProperty(prefix = REDIS_LIMIT_INTERCEPTOR, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class RedisLimitInterceptor {
 
     @Resource

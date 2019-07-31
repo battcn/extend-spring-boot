@@ -16,6 +16,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.REDIS_KEY_GENERATOR;
+
 /**
  * 基于 Redis 实现的分布式锁组件
  *
@@ -38,7 +40,7 @@ public class RedisLockHelper {
         this.stringRedisTemplate = stringRedisTemplate;
     }
 
-    @Bean
+    @Bean(REDIS_KEY_GENERATOR)
     @ConditionalOnMissingBean
     public RedisKeyGenerator redisKeyGenerator() {
         return new DefaultRedisKeyGenerator();
@@ -74,6 +76,9 @@ public class RedisLockHelper {
             stringRedisTemplate.expire(lockKey, timeout, TimeUnit.SECONDS);
         } else {
             String oldVal = stringRedisTemplate.opsForValue().getAndSet(lockKey, (System.currentTimeMillis() + milliseconds) + DELIMITER + uuid);
+            if (oldVal == null) {
+                return false;
+            }
             final String[] oldValues = oldVal.split(Pattern.quote(DELIMITER));
             if (Long.parseLong(oldValues[0]) + 1 <= System.currentTimeMillis()) {
                 return true;
@@ -117,6 +122,9 @@ public class RedisLockHelper {
      */
     private void doUnlock(final String lockKey, final String uuid) {
         String val = stringRedisTemplate.opsForValue().get(lockKey);
+        if (val == null) {
+            return;
+        }
         final String[] values = val.split(Pattern.quote(DELIMITER));
         if (values.length <= 0) {
             return;

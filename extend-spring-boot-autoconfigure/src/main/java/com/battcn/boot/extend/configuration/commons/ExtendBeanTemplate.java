@@ -12,6 +12,19 @@ public interface ExtendBeanTemplate {
     String ENABLED = "enabled";
 
 
+    String REDIS = "extend.redis";
+    String REDIS_LOCK = "extend.redis.lock";
+    String REDIS_LOCK_INTERCEPTOR = "extend.redis.lock.interceptor";
+
+
+    String REDIS_LIMIT = "extend.redis.limit";
+    String REDIS_LIMIT_INTERCEPTOR = "extend.redis.limit.interceptor";
+
+
+    String REDIS_LOCK_HELPER = "redisLockHelper";
+    String REDIS_LIMIT_TEMPLATE = "redisLimitTemplate";
+    String REDIS_KEY_GENERATOR = "redisKeyGenerator";
+
     String I18N = "extend.i18n";
     String CORS = "extend.cors";
     String CRYPTO = "extend.crypto";

@@ -7,11 +7,14 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.lang.reflect.Method;
 import java.util.UUID;
+
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
 
 /**
  * @author Levin
@@ -19,6 +22,7 @@ import java.util.UUID;
  */
 @Slf4j
 @Aspect
+@ConditionalOnProperty(prefix = REDIS_LOCK_INTERCEPTOR, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class RedisLockInterceptor {
 
     @Resource
