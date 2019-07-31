@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <name>extend-spring-boot</name>
     <url>https://github.com/battcn/extend-spring-boot-starter.git</url>
-    <description>包装 request body</description>
+    <description>扩展了一些 Spring Boot 没有提供的 Starter 包</description>
 
     <modules>
         <module>extend-spring-boot-dependencies</module>

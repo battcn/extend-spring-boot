@@ -24,6 +24,12 @@
         </license>
     </licenses>
 
+    <scm>
+        <url>http://blog.battcn.com</url>
+        <connection>git@github.com:battcn/extend-spring-boot.git</connection>
+        <developerConnection>https://github.com/battcn/extend-spring-boot.git</developerConnection>
+    </scm>
+
 
     <developers>
         <developer>
