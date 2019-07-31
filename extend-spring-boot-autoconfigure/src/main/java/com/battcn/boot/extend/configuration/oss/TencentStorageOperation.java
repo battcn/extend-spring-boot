@@ -90,7 +90,7 @@ public class TencentStorageOperation implements StorageOperation {
             throw new StorageException(BaseStorageProperties.StorageType.QCLOUD, "文件上传失败");
         }
         return StorageResponse.builder().storageItem(StorageItem
-                .builder().path(properties.getMapperPath() + fileName)
+                .builder().path(properties.getMappingPath() + fileName)
                 .name(fileName)
                 .build()).build();
     }
@@ -112,7 +112,7 @@ public class TencentStorageOperation implements StorageOperation {
             throw new StorageException(BaseStorageProperties.StorageType.QCLOUD, "文件上传失败");
         }
         return StorageResponse.builder().storageItem(StorageItem
-                .builder().path(properties.getMapperPath() + fileName)
+                .builder().path(properties.getMappingPath() + fileName)
                 .name(fileName)
                 .build()).build();
     }

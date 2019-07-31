@@ -130,7 +130,9 @@ public class MinioStorageOperation implements StorageOperation {
     @SneakyThrows
     @Override
     public StorageResponse upload(String bucketName, String fileName, InputStream content) {
-        minioClient.putObject(bucketName, fileName, content, content.available(), ContentType.APPLICATION_OCTET_STREAM.getMimeType());
+        minioClient.putObject(bucketName, fileName, content,
+                content.available(),
+                ContentType.APPLICATION_OCTET_STREAM.getMimeType());
         return StorageResponse.builder()
                 .successful(true)
                 .storageItem(StorageItem.builder()
