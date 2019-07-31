@@ -1,9 +1,10 @@
-package com.battcn.boot.extend.configuration.servlet;
+package com.battcn.boot.extend.configuration.wrapper;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
@@ -23,8 +24,9 @@ import java.util.Set;
  * @author Levin
  * @since 2018-12-17
  */
+@Configuration
 @EnableConfigurationProperties({RequestProperties.class})
-public class RequestWrapperFilter {
+public class RequestWrapperFilterAutoConfiguration {
 
     @Bean("registrationBodyCacheFilter")
     public FilterRegistrationBean registrationBodyCacheFilter(RequestProperties properties) {

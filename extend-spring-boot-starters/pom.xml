@@ -18,8 +18,26 @@
 
     <modules>
         <module>extend-spring-boot-starter</module>
+        <!--    跨域支持    -->
         <module>extend-cors-spring-boot-starter</module>
+        <!--    OSS云存储    -->
+        <module>extend-oss-spring-boot-starter</module>
+        <!--    Mybatis 扩展支持    -->
         <module>extend-mybatis-spring-boot-starter</module>
+        <!--    国际化 -->
+        <module>extend-i18n-spring-boot-starter</module>
+        <!--    关键字脱敏   -->
+        <module>extend-sensitive-spring-boot-starter</module>
+        <!--    xss 过滤器     -->
+        <module>extend-xss-spring-boot-starter</module>
+        <!--    加解密     -->
+        <module>extend-crypto-spring-boot-starter</module>
+        <!--    日期格式化   -->
+        <module>extend-time-spring-boot-starter</module>
+        <!--    重复获取 Body Stream -->
+        <module>extend-wrapper-spring-boot-starter</module>
+        <!--    redis分布式锁/限流     -->
+        <module>extend-redis-spring-boot-starter</module>
     </modules>
 
 

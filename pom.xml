@@ -8,7 +8,6 @@
     <version>2.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>extend-spring-boot</name>
-
     <url>https://github.com/battcn/extend-spring-boot-starter.git</url>
     <description>包装 request body</description>
 

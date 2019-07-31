@@ -1,4 +1,4 @@
-package com.battcn.boot.extend.configuration.servlet;
+package com.battcn.boot.extend.configuration.wrapper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

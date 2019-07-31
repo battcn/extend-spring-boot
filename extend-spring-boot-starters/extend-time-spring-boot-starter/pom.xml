@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>extend-mybatis-spring-boot-starter</artifactId>
+    <artifactId>extend-time-spring-boot-starter</artifactId>
 
 
     <dependencies>
@@ -19,8 +19,8 @@
             <version>${extend-spring-boot.version}</version>
         </dependency>
         <dependency>
-            <groupId>tk.mybatis</groupId>
-            <artifactId>mapper-spring-boot-starter</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 
