@@ -5,6 +5,22 @@
 
 **使用方式：在您的 `POM.XML` 中添加如下内容**
 
+## 已实现模块
+
+- **cors： Spring Boot 的跨域处理**
+- **crypto： 加解密处理**
+- **i18m： 国际化支持**
+- **mybatis： 集成 tk.mapper 与 pagehelper 同时封装了全局赋值插件**
+- **oss： 云存储（七牛/阿里/腾讯/MINIO）**
+- **redis： 增强 Redis，包含分布式锁和分布式限流**
+- **sensitive： 关键字脱敏处理**
+- **time： JDK8日期全局格式化**
+- **wrapper： 包装 request.body，支持重复读取request.getInputStream();**
+- **xss： 接口防XSS攻击**
+
+
+
+
 ```xml
 <dependency>
     <groupId>com.battcn</groupId>
