@@ -51,9 +51,19 @@ public class PrepareInterceptor implements Interceptor {
         for (Field field : parameterFields) {
             String fieldName = field.getName();
             if (SqlCommandType.INSERT.equals(sqlCommandType)) {
-                setFieldValue(parameter, superClass, process, fieldName, preparePluginProperties.getInsert().getFields());
+                PreparePluginProperties.ClassField classField = preparePluginProperties.getInsert();
+                if (classField != null) {
+                    setFieldValue(parameter, superClass, process, fieldName, classField.getFields());
+                } else {
+                    log.debug("[Insert ClassField 为空，不做赋值操作]");
+                }
             } else if (SqlCommandType.UPDATE.equals(sqlCommandType)) {
-                setFieldValue(parameter, superClass, process, fieldName, preparePluginProperties.getUpdate().getFields());
+                PreparePluginProperties.ClassField classField = preparePluginProperties.getUpdate();
+                if (classField != null) {
+                    setFieldValue(parameter, superClass, process, fieldName, classField.getFields());
+                } else {
+                    log.debug("[Update ClassField 为空，不做赋值操作]");
+                }
             }
         }
     }
