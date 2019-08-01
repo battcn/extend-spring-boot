@@ -49,7 +49,6 @@
     </developers>
 
 
-
     <properties>
         <!-- Maven Plugin Versions -->
         <maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
@@ -70,6 +69,18 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>oss</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 
     <build>
         <plugins>
@@ -96,8 +107,6 @@
             </plugin>
         </plugins>
     </build>
-
-
 
 
 </project>
