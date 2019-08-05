@@ -1,14 +1,12 @@
 package com.battcn.boot.extend.configuration.redis.lock;
 
 
-import com.battcn.boot.extend.configuration.redis.DefaultRedisKeyGenerator;
-import com.battcn.boot.extend.configuration.redis.RedisKeyGenerator;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.context.annotation.Bean;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.types.Expiration;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
 import java.util.concurrent.Executors;
@@ -16,7 +14,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Pattern;
 
-import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.REDIS_KEY_GENERATOR;
+import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.REDIS_LOCK_HELPER;
 
 /**
  * 基于 Redis 实现的分布式锁组件
@@ -24,6 +22,8 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.RE
  * @author Levin
  * @since 2018/6/15 0015
  */
+@Slf4j
+@Component(REDIS_LOCK_HELPER)
 public class RedisLockHelper {
 
 
@@ -38,12 +38,6 @@ public class RedisLockHelper {
 
     public RedisLockHelper(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
-    }
-
-    @Bean(REDIS_KEY_GENERATOR)
-    @ConditionalOnMissingBean
-    public RedisKeyGenerator redisKeyGenerator() {
-        return new DefaultRedisKeyGenerator();
     }
 
 

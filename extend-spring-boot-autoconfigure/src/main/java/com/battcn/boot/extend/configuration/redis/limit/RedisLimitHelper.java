@@ -1,10 +1,7 @@
 package com.battcn.boot.extend.configuration.redis.limit;
 
 
-import com.battcn.boot.extend.configuration.redis.DefaultRedisKeyGenerator;
-import com.battcn.boot.extend.configuration.redis.RedisKeyGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,6 +9,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -26,6 +24,7 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.RE
  * @since 2018/12/25
  */
 @Slf4j
+@Component("redisLimitHelper")
 public class RedisLimitHelper {
 
 
@@ -40,12 +39,6 @@ public class RedisLimitHelper {
         return redisLimitTemplate;
     }
 
-
-    @Bean
-    @ConditionalOnMissingBean
-    public RedisKeyGenerator redisKeyGenerator() {
-        return new DefaultRedisKeyGenerator();
-    }
 
     /**
      * 尝试获取
