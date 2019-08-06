@@ -1,26 +1,34 @@
 package com.battcn.boot.extend.configuration.oss.domain;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 /**
  * 响应结果
  *
  * @author Levin
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class StorageResponse implements java.io.Serializable {
+public class StorageResponse extends BaseResponse implements java.io.Serializable {
 
     private static final long serialVersionUID = -498222912510624959L;
 
-    private boolean successful;
-    private String message;
     private StorageItem storageItem;
 
+    public static StorageResponse success(StorageItem storageItem) {
+        StorageResponse response = new StorageResponse();
+        response.setSuccessful(true);
+        response.setStorageItem(storageItem);
+        return response;
+    }
+
+    public static StorageResponse error(String message) {
+        StorageResponse response = new StorageResponse();
+        response.setSuccessful(false);
+        response.setStorageItem(null);
+        response.setMessage(message);
+        return response;
+    }
 }

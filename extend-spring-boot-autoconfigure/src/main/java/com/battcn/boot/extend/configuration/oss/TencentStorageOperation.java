@@ -1,22 +1,20 @@
 package com.battcn.boot.extend.configuration.oss;
 
+import com.battcn.boot.extend.configuration.oss.domain.DownloadResponse;
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
 import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
-import com.battcn.boot.extend.configuration.oss.exception.StorageException;
-import com.battcn.boot.extend.configuration.oss.properties.BaseStorageProperties;
 import com.battcn.boot.extend.configuration.oss.properties.TencentStorageProperties;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.model.PutObjectRequest;
 import com.qcloud.cos.model.PutObjectResult;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
@@ -34,12 +32,12 @@ public class TencentStorageOperation implements StorageOperation {
 
 
     @Override
-    public BufferedReader download(String fileName) {
+    public DownloadResponse download(String fileName) {
         return null;
     }
 
     @Override
-    public BufferedReader download(String bucketName, String fileName) {
+    public DownloadResponse download(String bucketName, String fileName) {
         return null;
     }
 
@@ -63,19 +61,19 @@ public class TencentStorageOperation implements StorageOperation {
 
     }
 
-    @SneakyThrows
+
     @Override
     public void rename(String bucketName, String oldName, String newName) {
 
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String fileName, byte[] content) {
         return upload(properties.getBucket(), fileName, content);
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, InputStream content) {
         //腾讯云必需要以"/"开头
@@ -83,19 +81,25 @@ public class TencentStorageOperation implements StorageOperation {
             fileName = File.separator + fileName;
         }
         ObjectMetadata objectMetadata = new ObjectMetadata();
-        objectMetadata.setContentLength(content.available());
-        PutObjectRequest request = new PutObjectRequest(properties.getBucket(), fileName, content, objectMetadata);
-        PutObjectResult result = client.putObject(request);
-        if (StringUtils.isEmpty(result.getETag())) {
-            throw new StorageException(BaseStorageProperties.StorageType.QCLOUD, "文件上传失败");
+        try {
+            objectMetadata.setContentLength(content.available());
+            PutObjectRequest request = new PutObjectRequest(properties.getBucket(), fileName, content, objectMetadata);
+            PutObjectResult result = client.putObject(request);
+            if (StringUtils.isEmpty(result.getETag())) {
+                return StorageResponse.error("文件上传失败");
+            }
+            return StorageResponse
+                    .success(StorageItem.builder()
+                            .path(properties.getMappingPath() + fileName)
+                            .name(fileName)
+                            .build());
+        } catch (IOException e) {
+            log.error("[文件上传异常]", e);
+            return StorageResponse.error(e.getLocalizedMessage());
         }
-        return StorageResponse.builder().storageItem(StorageItem
-                .builder().path(properties.getMappingPath() + fileName)
-                .name(fileName)
-                .build()).build();
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, byte[] content) {
         //腾讯云必需要以"/"开头
@@ -105,16 +109,17 @@ public class TencentStorageOperation implements StorageOperation {
         ObjectMetadata objectMetadata = new ObjectMetadata();
         // 设置输入流长度为 500
         objectMetadata.setContentLength(content.length);
-        PutObjectRequest request = new PutObjectRequest(properties.getBucket(), fileName, new ByteArrayInputStream(content), objectMetadata);
+        PutObjectRequest request = new PutObjectRequest(properties.getBucket(), fileName,
+                new ByteArrayInputStream(content), objectMetadata);
         PutObjectResult result = client.putObject(request);
-
         if (StringUtils.isEmpty(result.getETag())) {
-            throw new StorageException(BaseStorageProperties.StorageType.QCLOUD, "文件上传失败");
+            return StorageResponse.error("文件上传失败");
         }
-        return StorageResponse.builder().storageItem(StorageItem
-                .builder().path(properties.getMappingPath() + fileName)
-                .name(fileName)
-                .build()).build();
+        return StorageResponse
+                .success(StorageItem.builder()
+                        .name(fileName)
+                        .path(properties.getMappingPath() + fileName)
+                        .build());
     }
 
     @Override

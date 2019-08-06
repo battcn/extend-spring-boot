@@ -2,19 +2,21 @@ package com.battcn.boot.extend.configuration.oss;
 
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.QiNiuScope;
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.connection.QiNiuConnectionFactory;
+import com.battcn.boot.extend.configuration.oss.domain.DownloadResponse;
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
 import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import com.battcn.boot.extend.configuration.oss.properties.QiNiuStorageProperties;
 import com.qiniu.cdn.CdnManager;
+import com.qiniu.common.QiniuException;
+import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.UploadManager;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.file.Path;
 import java.util.List;
@@ -41,86 +43,118 @@ public class QiNiuStorageOperation implements StorageOperation {
         this.cdnManager = this.connectionFactory.getCdnManager();
     }
 
-    @SneakyThrows
+
     @Override
-    public BufferedReader download(String fileName) {
+    public DownloadResponse download(String fileName) {
         String domainOfBucket = this.connectionFactory.getDomain(properties.getBucket());
-        String encodedFileName = URLEncoder.encode(fileName, "utf-8");
-        String format = String.format("%s/%s", domainOfBucket, encodedFileName);
+        String encodedFileName = null;
+        try {
+            encodedFileName = URLEncoder.encode(fileName, "utf-8");
+            String format = String.format("%s/%s", domainOfBucket, encodedFileName);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
-    @SneakyThrows
+
     @Override
-    public BufferedReader download(String bucketName, String fileName) {
+    public DownloadResponse download(String bucketName, String fileName) {
         return null;
     }
 
-    @SneakyThrows
+
     @Override
     public void download(String bucketName, String fileName, File file) {
 
     }
 
-    @SneakyThrows
+
     @Override
     public void download(String fileName, File file) {
 
     }
 
-    @SneakyThrows
+
     @Override
     public List<StorageItem> list() {
         return null;
     }
 
-    @SneakyThrows
+
     @Override
     public void rename(String oldName, String newName) {
 
     }
 
-    @SneakyThrows
+
     @Override
     public void rename(String bucketName, String oldName, String newName) {
 
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String fileName, byte[] content) {
         return upload(properties.getBucket(), fileName, content);
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, InputStream content) {
-        String upToken = getUploadToken(bucketName, fileName, QiNiuScope.DEFAULT);
-        uploadManager.put(content, fileName, upToken, null, null);
-        return StorageResponse.builder().build();
+        try {
+            String upToken = getUploadToken(bucketName, fileName, QiNiuScope.DEFAULT);
+            Response response = uploadManager.put(content, fileName, upToken, null, null);
+            if (!response.isOK()) {
+                return StorageResponse.error(response.error);
+            }
+            return StorageResponse.success(StorageItem.builder()
+                    .name(fileName)
+                    .size((long) response.body().length)
+                    .path(response.url()).build());
+        } catch (QiniuException e) {
+            log.error("[文件上传异常]", e);
+            return StorageResponse.error(e.getLocalizedMessage());
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, byte[] content) {
-        String upToken = getUploadToken(bucketName, fileName, QiNiuScope.DEFAULT);
-        uploadManager.put(content, fileName, upToken);
-        return StorageResponse.builder().build();
+        try {
+            String upToken = getUploadToken(bucketName, fileName, QiNiuScope.DEFAULT);
+            Response response = uploadManager.put(content, fileName, upToken);
+            if (!response.isOK()) {
+                return StorageResponse.error(response.error);
+            }
+            return StorageResponse.success(StorageItem.builder()
+                    .size((long) response.body().length)
+                    .name(fileName)
+                    .path(response.url()).build());
+        } catch (QiniuException e) {
+            log.error("[文件上传异常]", e);
+            return StorageResponse.error(e.getLocalizedMessage());
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String fileName) {
         remove(properties.getBucket(), fileName);
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String bucketName, String fileName) {
-        bucketManager.delete(bucketName, fileName);
+        try {
+            bucketManager.delete(bucketName, fileName);
+        } catch (QiniuException e) {
+            log.error("[文件移除异常]", e);
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String bucketName, Path path) {
         remove(bucketName, path.toString());

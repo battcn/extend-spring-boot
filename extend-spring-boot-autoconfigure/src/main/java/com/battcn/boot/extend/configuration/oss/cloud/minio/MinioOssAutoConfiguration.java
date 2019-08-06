@@ -27,8 +27,8 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.AL
 @ConditionalOnProperty(prefix = ExtendBeanTemplate.OSS_CONFIG_PREFIX_MINIO, name = "enabled", havingValue = "true")
 public class MinioOssAutoConfiguration {
 
-    @Bean
     @SneakyThrows
+    @Bean
     public MinioClient minioClient(MinioStorageProperties properties) {
         MinioClient minioClient;
         try {

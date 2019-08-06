@@ -1,7 +1,7 @@
 package com.battcn.boot.extend.configuration.oss.cloud.qiniu;
 
-import com.battcn.boot.extend.configuration.oss.QiNiuStorageOperation;
 import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
+import com.battcn.boot.extend.configuration.oss.QiNiuStorageOperation;
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.connection.QiNiuConnectionFactory;
 import com.battcn.boot.extend.configuration.oss.cloud.qiniu.connection.QiNiuOssClientConnectionFactory;
 import com.battcn.boot.extend.configuration.oss.properties.QiNiuStorageProperties;

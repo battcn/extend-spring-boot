@@ -1,5 +1,6 @@
 package com.battcn.boot.extend.configuration.oss;
 
+import com.battcn.boot.extend.configuration.oss.domain.DownloadResponse;
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
 import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
 import com.battcn.boot.extend.configuration.oss.exception.StorageException;
@@ -11,7 +12,6 @@ import io.minio.Result;
 import io.minio.errors.*;
 import io.minio.messages.Item;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.entity.ContentType;
@@ -37,28 +37,37 @@ public class MinioStorageOperation implements StorageOperation {
     private final MinioClient minioClient;
     private final MinioStorageProperties properties;
 
-    @SneakyThrows
+
     @Override
-    public BufferedReader download(String fileName) {
+    public DownloadResponse download(String fileName) {
         return download(properties.getBucket(), fileName);
     }
 
-    @SneakyThrows
     @Override
-    public BufferedReader download(String bucketName, String fileName) {
-        InputStream inputStream = minioClient.getObject(bucketName, fileName);
-        return new BufferedReader(new InputStreamReader(inputStream));
+    public DownloadResponse download(String bucketName, String fileName) {
+        try {
+            InputStream inputStream = minioClient.getObject(bucketName, fileName);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            return DownloadResponse.success(bufferedReader);
+        } catch (Exception ex) {
+            log.error("[文件下载异常]", ex);
+            return DownloadResponse.error(ex.getLocalizedMessage());
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public void download(String bucketName, String fileName, File file) {
-        InputStream inputStream = minioClient.getObject(bucketName, fileName);
-        OutputStream outputStream = new FileOutputStream(file);
-        IOUtils.copy(inputStream, outputStream);
+        try {
+            InputStream inputStream = minioClient.getObject(bucketName, fileName);
+            OutputStream outputStream = new FileOutputStream(file);
+            IOUtils.copy(inputStream, outputStream);
+        } catch (Exception e) {
+            log.error("[文件下载异常]", e);
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public void download(String fileName, File file) {
         download(properties.getBucket(), fileName, file);
@@ -95,72 +104,82 @@ public class MinioStorageOperation implements StorageOperation {
                             XmlPullParserException |
                             ErrorResponseException |
                             InternalException e) {
-                        throw new StorageException("Error while parsing list of objects", e);
+                        throw new StorageException(BaseStorageProperties.StorageType.MINIO, "Error while parsing list of objects", e);
                     }
                 })
                 .collect(Collectors.toList());
     }
 
-    @SneakyThrows
+
     @Override
     public List<StorageItem> list() {
-        Iterable<Result<Item>> iterable = minioClient.listObjects(properties.getBucket());
-        return getStorageItems(iterable);
+        try {
+            Iterable<Result<Item>> iterable = minioClient.listObjects(properties.getBucket());
+            return getStorageItems(iterable);
+        } catch (XmlPullParserException e) {
+            log.error("[文件列表异常]", e);
+        }
+        return null;
     }
 
-    @SneakyThrows
+
     @Override
     public void rename(String oldName, String newName) {
         throw new StorageException(BaseStorageProperties.StorageType.MINIO, "方法未实现");
     }
 
-    @SneakyThrows
+
     @Override
     public void rename(String bucketName, String oldName, String newName) {
         throw new StorageException(BaseStorageProperties.StorageType.MINIO, "方法未实现");
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String fileName, byte[] content) {
         InputStream stream = new ByteArrayInputStream(content);
         return upload(properties.getBucket(), fileName, stream);
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, InputStream content) {
-        minioClient.putObject(bucketName, fileName, content,
-                content.available(),
-                ContentType.APPLICATION_OCTET_STREAM.getMimeType());
-        return StorageResponse.builder()
-                .successful(true)
-                .storageItem(StorageItem.builder()
-                        .name(fileName)
-                        .path(properties.getMappingPath() + fileName)
-                        .build())
-                .build();
+        try {
+            minioClient.putObject(bucketName, fileName, content, content.available(),
+                    ContentType.APPLICATION_OCTET_STREAM.getMimeType());
+            return StorageResponse.success(StorageItem.builder()
+                    .name(fileName)
+                    .path(properties.getMappingPath() + fileName)
+                    .build());
+        } catch (Exception e) {
+            log.error("[文件上传失败]", e);
+            return StorageResponse.error(e.getLocalizedMessage());
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, byte[] content) {
         return upload(bucketName, fileName, new ByteArrayInputStream(content));
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String fileName) {
         remove(properties.getBucket(), fileName);
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String bucketName, String fileName) {
-        minioClient.removeObject(bucketName, fileName);
+        try {
+            minioClient.removeObject(bucketName, fileName);
+        } catch (Exception e) {
+            log.error("[文件删除失败]", e);
+        }
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String bucketName, Path path) {
         remove(bucketName, path.toString());

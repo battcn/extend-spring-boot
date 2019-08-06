@@ -1,7 +1,7 @@
 package com.battcn.boot.extend.configuration.oss.cloud.tencent;
 
-import com.battcn.boot.extend.configuration.oss.TencentStorageOperation;
 import com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate;
+import com.battcn.boot.extend.configuration.oss.TencentStorageOperation;
 import com.battcn.boot.extend.configuration.oss.properties.TencentStorageProperties;
 import com.qcloud.cos.COSClient;
 import com.qcloud.cos.ClientConfig;

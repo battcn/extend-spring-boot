@@ -1,19 +1,22 @@
 package com.battcn.boot.extend.configuration.oss;
 
 import com.aliyun.oss.OSSClient;
+import com.aliyun.oss.common.comm.ResponseMessage;
 import com.aliyun.oss.model.GetObjectRequest;
 import com.aliyun.oss.model.OSSObject;
+import com.aliyun.oss.model.PutObjectResult;
+import com.battcn.boot.extend.configuration.oss.domain.DownloadResponse;
 import com.battcn.boot.extend.configuration.oss.domain.StorageItem;
 import com.battcn.boot.extend.configuration.oss.domain.StorageResponse;
+import com.battcn.boot.extend.configuration.oss.exception.StorageException;
 import com.battcn.boot.extend.configuration.oss.properties.AliYunStorageProperties;
+import com.battcn.boot.extend.configuration.oss.properties.BaseStorageProperties;
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * @author Levin
@@ -22,23 +25,19 @@ import java.util.concurrent.atomic.AtomicLong;
 @AllArgsConstructor
 public class AliYunStorageOperation implements StorageOperation {
 
-    public static final AtomicLong FILE_UPLOAD_SUCCESS = new AtomicLong();
-    public static final AtomicLong FILE_UPLOAD_FAIL = new AtomicLong();
-    public static final AtomicLong FILE_GET_COUNTS = new AtomicLong();
-    public static final AtomicLong FILE_DELETE_COUNTS = new AtomicLong();
 
     private final OSSClient ossClient;
     private final AliYunStorageProperties properties;
 
-    @SneakyThrows
+
     @Override
-    public BufferedReader download(String fileName) {
+    public DownloadResponse download(String fileName) {
         return download(properties.getBucket(), fileName);
     }
 
-    @SneakyThrows
+
     @Override
-    public BufferedReader download(String bucketName, String fileName) {
+    public DownloadResponse download(String bucketName, String fileName) {
         // ossObject包含文件所在的存储空间名称、文件名称、文件元信息以及一个输入流。
         OSSObject ossObject = ossClient.getObject(bucketName, fileName);
         // 读取文件内容。
@@ -49,38 +48,38 @@ public class AliYunStorageOperation implements StorageOperation {
                     break;
                 }
             }
-            return reader;
+            return DownloadResponse.success(reader);
+        } catch (Exception e) {
+            log.error("[文件下载异常]", e);
+            return DownloadResponse.error(e.getLocalizedMessage());
         }
     }
 
-    @SneakyThrows
+
     @Override
     public void download(String fileName, File file) {
         download(properties.getBucket(), fileName, file);
     }
 
 
-    @SneakyThrows
     @Override
     public void download(String bucketName, String fileName, File file) {
         ossClient.getObject(new GetObjectRequest(bucketName, fileName), file);
     }
 
 
-    @SneakyThrows
     @Override
     public List<StorageItem> list() {
-        return null;
+        throw new StorageException(BaseStorageProperties.StorageType.ALIYUN, "方法未实现");
     }
 
-    @SneakyThrows
+
     @Override
     public void rename(String oldName, String newName) {
         rename(properties.getBucket(), oldName, newName);
     }
 
 
-    @SneakyThrows
     @Override
     public void rename(String bucketName, String oldName, String newName) {
         boolean keyExists = true;
@@ -94,17 +93,22 @@ public class AliYunStorageOperation implements StorageOperation {
         }
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String fileName, byte[] content) {
         return upload(properties.getBucket(), fileName, content);
     }
 
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, InputStream content) {
-        byte[] bytes = new byte[content.available()];
-        return upload(properties.getBucket(), fileName, bytes);
+        try {
+            byte[] bytes = new byte[content.available()];
+            return upload(properties.getBucket(), fileName, bytes);
+        } catch (IOException ex) {
+            log.error("[异常信息]", ex);
+            return StorageResponse.error(ex.getLocalizedMessage());
+        }
     }
 
     /**
@@ -114,28 +118,36 @@ public class AliYunStorageOperation implements StorageOperation {
      * @param fileName   文件名字
      * @param content    文件内容
      */
-    @SneakyThrows
+
     @Override
     public StorageResponse upload(String bucketName, String fileName, byte[] content) {
         ByteArrayInputStream bis = new ByteArrayInputStream(content);
         try {
-            ossClient.putObject(bucketName, fileName, bis);
+            PutObjectResult objectResult = ossClient.putObject(bucketName, fileName, bis);
+            ResponseMessage response = objectResult.getResponse();
+            if (!response.isSuccessful()) {
+                return StorageResponse.error(response.getErrorResponseAsString());
+            }
             FILE_UPLOAD_SUCCESS.incrementAndGet();
+            return StorageResponse.success(StorageItem.builder().name(fileName)
+                    .size(response.getContentLength())
+                    .path(response.getUri())
+                    .build());
         } catch (Exception ex) {
             ossClient.putObject(bucketName, fileName, bis);
             FILE_UPLOAD_FAIL.incrementAndGet();
             log.error("[异常信息]", ex);
+            return StorageResponse.error(ex.getLocalizedMessage());
         }
-        return StorageResponse.builder().build();
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String fileName) {
         remove(properties.getBucket(), fileName);
     }
 
-    @SneakyThrows
+
     @Override
     public void remove(String bucketName, String fileName) {
         ossClient.deleteObject(bucketName, fileName);

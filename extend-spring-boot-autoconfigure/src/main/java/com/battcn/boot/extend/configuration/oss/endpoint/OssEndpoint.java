@@ -23,7 +23,6 @@ public class OssEndpoint {
     @ReadOperation
     public Object invoke() {
         Map<String, Object> info = Maps.newLinkedHashMap();
-        info.put("bucket", properties.getBucket());
         info.put("upload.success", AliYunStorageOperation.FILE_UPLOAD_SUCCESS.get());
         info.put("upload.fail", AliYunStorageOperation.FILE_UPLOAD_FAIL.get());
         info.put("get.count", AliYunStorageOperation.FILE_GET_COUNTS.get());
