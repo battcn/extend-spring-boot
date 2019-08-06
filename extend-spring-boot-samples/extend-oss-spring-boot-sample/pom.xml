@@ -8,7 +8,7 @@
         <version>2.1.6.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.battcn.sample</groupId>
+    <groupId>com.battcn.boot.sample</groupId>
     <artifactId>extend-oss-spring-boot-sample</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>extend-oss-spring-boot-sample</name>
@@ -24,9 +24,9 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.battcn</groupId>
+            <groupId>com.battcn.boot</groupId>
             <artifactId>extend-oss-spring-boot-starter</artifactId>
-            <version>2.0.4-RELEASE</version>
+            <version>2.1.1-RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

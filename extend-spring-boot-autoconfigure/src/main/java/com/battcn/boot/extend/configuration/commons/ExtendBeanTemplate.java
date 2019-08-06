@@ -36,7 +36,7 @@ public interface ExtendBeanTemplate {
 
 
 
-
+    String XXL_JOB = "extend.xxl.job";
 
 
 

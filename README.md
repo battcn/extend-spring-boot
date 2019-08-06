@@ -17,13 +17,14 @@
 - **time： JDK8日期全局格式化**
 - **wrapper： 包装 request.body，支持重复读取request.getInputStream();**
 - **xss： 接口防XSS攻击**
+- **xxl-job： XXL-JOB 的自动装配**
 
 
 
 
 ```xml
 <dependency>
-    <groupId>com.battcn</groupId>
+    <groupId>com.battcn.boot</groupId>
     <artifactId>extend-具体的模块-spring-boot-starter</artifactId>
     <version>${extend-spring-boot.version}</version>
 </dependency>
