@@ -14,7 +14,6 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.CR
  * @since 2018/12/27 0027
  */
 @Data
-@Component
 @ConfigurationProperties(CRYPTO)
 public class CryptoProperties {
 

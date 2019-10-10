@@ -6,8 +6,6 @@ import com.battcn.boot.extend.configuration.crypto.encrypt.CryptoUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -21,8 +19,6 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 
-import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
-
 /**
  * 对 RequestBody 中加密信息做解密处理
  *
@@ -31,8 +27,6 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
  */
 @Slf4j
 @RestControllerAdvice
-@EnableConfigurationProperties(CryptoProperties.class)
-@ConditionalOnProperty(prefix = CRYPTO, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
 
     @Resource
@@ -72,7 +66,7 @@ public class DecryptRequestBodyAdvice implements RequestBodyAdvice {
             final Charset charset = Charset.forName(properties.getEncoding());
             final Decrypt decrypt = parameter.getMethod().getAnnotation(Decrypt.class);
             final CryptoProperties.Decrypt propertiesDecrypt = properties.getDecrypt();
-            final String key = StringUtils.defaultString(decrypt.key(), propertiesDecrypt.getKey());
+            final String key = StringUtils.isNotBlank(decrypt.key()) ? decrypt.key() : propertiesDecrypt.getKey();
             final String content = IOUtils.toString(inputStream, charset);
             if (log.isDebugEnabled()) {
                 log.info("[解密前的内容] - [{}]", content);

@@ -7,7 +7,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.ServerHttpRequest;
@@ -18,8 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import javax.annotation.Resource;
 import java.nio.charset.Charset;
 
-import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
-
 /**
  * 对 ResponseBody 返回的信息做加密处理
  *
@@ -28,7 +25,6 @@ import static com.battcn.boot.extend.configuration.commons.ExtendBeanTemplate.*;
  */
 @Slf4j
 @RestControllerAdvice
-@ConditionalOnProperty(prefix = CRYPTO, name = ENABLED, havingValue = TRUE, matchIfMissing = true)
 public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
 
     @Resource
@@ -77,7 +73,7 @@ public class EncryptResponseBodyAdvice implements ResponseBodyAdvice {
         final Charset charset = Charset.forName(properties.getEncoding());
         final Encrypt encrypt = returnType.getMethodAnnotation(Encrypt.class);
         final CryptoProperties.Encrypt propertiesEncrypt = properties.getEncrypt();
-        final String key = StringUtils.defaultString(encrypt.key(), propertiesEncrypt.getKey());
+        final String key = StringUtils.isNotBlank(encrypt.key()) ? encrypt.key() : propertiesEncrypt.getKey();
         final String result = CryptoUtils.encryptToString(encrypt.type(), key, content, charset);
         if (log.isDebugEnabled()) {
             log.info("[加密后的内容] - [{}]", result);

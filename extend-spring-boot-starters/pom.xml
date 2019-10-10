@@ -6,12 +6,12 @@
     <parent>
         <groupId>com.battcn.boot</groupId>
         <artifactId>extend-spring-boot-dependencies</artifactId>
-        <version>2.1.2-SNAPSHOT</version>
+        <version>2.1.2-RELEASE</version>
         <relativePath>../extend-spring-boot-dependencies/pom.xml</relativePath>
     </parent>
     <groupId>com.battcn.boot</groupId>
     <artifactId>extend-spring-boot-starters</artifactId>
-    <version>2.1.2-SNAPSHOT</version>
+    <version>2.1.2-RELEASE</version>
     <name>extend-spring-boot-starters</name>
     <packaging>pom</packaging>
 
